@@ -1,0 +1,22 @@
+{
+  "id": "happy_path_storm",
+  "description": "Standard storm hazard report — happy path end to end",
+  "script": [
+    {"kind": "transcript", "text": "yes I want to report", "confidence": 0.95},
+    {"kind": "transcript", "text": "cyclone damage everywhere", "confidence": 0.92},
+    {"kind": "transcript", "text": "The cyclone brought very strong winds and knocked trees down near the shore", "confidence": 0.91},
+    {"kind": "transcript", "text": "Kakinada harbour", "confidence": 0.88},
+    {"kind": "transcript", "text": "yes that is right", "confidence": 0.95},
+    {"kind": "transcript", "text": "very severe", "confidence": 0.92},
+    {"kind": "transcript", "text": "waist deep", "confidence": 0.90},
+    {"kind": "transcript", "text": "yes submit it", "confidence": 0.97}
+  ],
+  "expect": {
+    "terminal_node": "SUBMITTED",
+    "slots": {
+      "intent": "yes",
+      "hazard_type": "storm",
+      "severity": "extreme"
+    }
+  }
+}

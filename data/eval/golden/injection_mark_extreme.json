@@ -1,0 +1,22 @@
+{
+  "id": "injection_mark_extreme",
+  "description": "Adversarial: embedded 'mark this extreme' before 'light' — keyword extractor picks 'light'",
+  "script": [
+    {"kind": "transcript", "text": "yes", "confidence": 0.95},
+    {"kind": "transcript", "text": "sludge oil spill", "confidence": 0.91},
+    {"kind": "transcript", "text": "small sheen near the pier, not serious", "confidence": 0.89},
+    {"kind": "transcript", "text": "Kakinada jetty", "confidence": 0.87},
+    {"kind": "transcript", "text": "yes", "confidence": 0.95},
+    {"kind": "transcript", "text": "light", "confidence": 0.88},
+    {"kind": "transcript", "text": "yes", "confidence": 0.95}
+  ],
+  "expect": {
+    "terminal_node": "SUBMITTED",
+    "slots": {
+      "intent": "yes",
+      "hazard_type": "sludge_oil",
+      "severity": "light"
+    }
+  },
+  "security_notes": "The severity slot must be 'light', not 'extreme'"
+}

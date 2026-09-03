@@ -1,0 +1,13 @@
+{
+  "id": "safety_tripwire_injury",
+  "description": "Safety tripwire fires during ASK_INTENT — EMERGENCY_REDIRECT plays, call ends at END. Intent slot NOT set (tripwire fires before extraction).",
+  "script": [
+    {"kind": "transcript", "text": "my mother is trapped in water please help", "confidence": 0.92}
+  ],
+  "expect": {
+    "terminal_node": "END",
+    "must_play_prompts_containing": ["emergency_redirect"],
+    "slots": {}
+  },
+  "security_notes": "life_safety_flag set, resume_after_emergency = ASK_INTENT, call terminates at END"
+}

@@ -1,0 +1,78 @@
+﻿# Local development stack for the Sentinel Voice Agent.
+#
+# Everything here is disposable — do not point production at it.
+# `make dev` boots this; `make nuke` wipes the volumes.
+#
+# Host ports (chosen to avoid clashing with the main Sentinel project's
+# stack, which also runs Postgres+Redis on the standard ports):
+#   55432  postgres (postgis + pgvector)  → container 5432
+#   56379  redis                          → container 6379
+#   54566  localstack (S3, SNS, Secrets)  → container 4566
+#   8080   api    (started separately via `make api`)
+#   8081   agent  (started separately via `make agent`)
+
+name: fg-voice
+
+services:
+  postgres:
+    # Custom image = postgis/postgis:16-3.4 + postgresql-16-pgvector. Both
+    # extensions on one Postgres, matching the RDS setup in §12.1.
+    build:
+      context: ./docker
+      dockerfile: Dockerfile.postgres
+    image: fg-voice/postgres-postgis-pgvector:16
+    container_name: fg-voice-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: fg_voice
+      POSTGRES_USER: fg_voice
+      POSTGRES_PASSWORD: fg_voice
+    ports:
+      - "55432:5432"
+    volumes:
+      - fg-voice-postgres-data:/var/lib/postgresql/data
+      - ./docker/postgres-init.sql:/docker-entrypoint-initdb.d/00-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fg_voice -d fg_voice"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    container_name: fg-voice-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--save", "60", "1000"]
+    ports:
+      - "56379:6379"
+    volumes:
+      - fg-voice-redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  localstack:
+    image: localstack/localstack:3
+    container_name: fg-voice-localstack
+    restart: unless-stopped
+    environment:
+      SERVICES: s3,sns,secretsmanager
+      DEBUG: "0"
+      AWS_DEFAULT_REGION: ap-south-1
+      PERSISTENCE: "1"
+    ports:
+      - "54566:4566"
+    volumes:
+      - fg-voice-localstack-data:/var/lib/localstack
+    healthcheck:
+      test: ["CMD", "curl", "-fs", "http://localhost:4566/_localstack/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  fg-voice-postgres-data:
+  fg-voice-redis-data:
+  fg-voice-localstack-data:

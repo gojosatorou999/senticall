@@ -1,0 +1,17 @@
+.git
+.venv
+__pycache__
+*.pyc
+.pytest_cache
+.mypy_cache
+.ruff_cache
+.coverage
+htmlcov
+reports
+data/gazetteer/raw
+data/eval/generated
+snapshots
+tests
+docs
+*.md
+!README.md

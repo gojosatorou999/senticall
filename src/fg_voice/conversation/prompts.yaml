@@ -1,0 +1,153 @@
+﻿## THE single source of caller-facing text.
+##
+## Every string a caller could hear MUST live here. `prompt_bank.py`
+## loads and validates this file at boot: unknown template variables,
+## unknown DTMF slot values, or a missing referenced prompt fail the
+## process before it accepts traffic. See CLAUDE.md invariant #2.
+##
+## Variable whitelist is defined in `prompt_bank.PROMPT_VARIABLES` and
+## must match the placeholders used below.
+
+meta:
+  locale: en-IN
+  voice_id: "${TTS_VOICE_ID}"
+  # barge_in: false ONLY for legally required notices
+  default_barge_in: true
+
+prompts:
+
+  # ─── CONSENT (non-interruptible, kept to ~2.5 s) ────────────────────
+  consent_notice:
+    text: "You've reached the Sentinel Coastal Alert line. This call is recorded."
+    barge_in: false
+    prerender: true
+
+  # ─── INTENT ─────────────────────────────────────────────────────────
+  ask_intent:
+    text: "Are you reporting a hazard right now? Say yes, or press 1."
+    prerender: true
+    dtmf: { "1": "yes", "2": "no" }
+  reprompt_intent_1:
+    text: "Sorry, I didn't catch that. Are you reporting a hazard?"
+    prerender: true
+  reprompt_intent_2:
+    text: "You can say yes, or press 1. To end the call, say no, or press 2."
+    prerender: true
+    dtmf: { "1": "yes", "2": "no" }
+  not_reporting:
+    text: "Understood. If you see anything later, call this number back any time. Stay safe."
+    prerender: true
+    terminal: true
+
+  # ─── EMERGENCY SHORT-CIRCUIT (highest priority, any state) ──────────
+  emergency_redirect:
+    text: >-
+      If anyone is hurt or trapped, please hang up and call one one two right now.
+      That's the fastest help. I can still take your report if you'd like to carry on.
+    barge_in: false
+    prerender: true
+    side_effects: ["flag:life_safety", "notify:ops_immediate"]
+
+  # ─── HAZARD TYPE ────────────────────────────────────────────────────
+  ask_hazard_type:
+    text: "What kind of hazard is it — floods, a tsunami, storm damage, sludge or oil, unusual tides, or something else?"
+    prerender: true
+  reprompt_hazard_type_1:
+    text: "Which is closest — floods, tsunami, storm, sludge, or tides?"
+    prerender: true
+  reprompt_hazard_type_2:
+    text: "Press 1 for floods, 2 for tsunami, 3 for storm, 4 for sludge or oil, 5 for unusual tides, 6 for something else."
+    prerender: true
+    dtmf: { "1": "flood", "2": "tsunami", "3": "storm", "4": "sludge_oil", "5": "abnormal_tide", "6": "other" }
+
+  # ─── DESCRIPTION ────────────────────────────────────────────────────
+  ask_description:
+    text: "Tell me what you're seeing. Take your time."
+    prerender: true
+  reprompt_description_1:
+    text: "In a sentence or two — what's happening there?"
+    prerender: true
+  reprompt_description_2:
+    text: "Even a few words helps. What's happening?"
+    prerender: true
+
+  # ─── LOCATION ───────────────────────────────────────────────────────
+  ask_location:
+    text: "Where is this? A beach, landmark, or village name is enough."
+    prerender: true
+  reprompt_location_1:
+    text: "Which area or landmark is it near?"
+    prerender: true
+  reprompt_location_2:
+    text: "Tell me the nearest town or village, and I'll narrow it down after the call."
+    prerender: true
+  confirm_location_low_conf:
+    text: "I heard {location_candidate}. Is that right?"
+    prerender: false
+  disambiguate_location:
+    text: "Is that {option_a}, or {option_b}?"
+    prerender: false
+
+  # ─── SEVERITY ───────────────────────────────────────────────────────
+  ask_severity:
+    text: "How bad is it right now — light, moderate, or extreme?"
+    prerender: true
+  reprompt_severity_1:
+    text: "Would you call it light, moderate, or extreme?"
+    prerender: true
+  reprompt_severity_2:
+    text: "Press 1 for light, 2 for moderate, 3 for extreme."
+    prerender: true
+    dtmf: { "1": "light", "2": "moderate", "3": "extreme" }
+
+  # ─── CONDITIONAL: WATER DEPTH (flood / tide / surge only) ───────────
+  ask_depth:
+    text: "Roughly how deep is the water — ankle, knee, waist, or higher?"
+    prerender: true
+  reprompt_depth_1:
+    text: "Ankle, knee, waist, or higher than waist?"
+    prerender: true
+    dtmf: { "1": "ankle", "2": "knee", "3": "waist", "4": "above_waist" }
+  skip_depth:
+    text: "No problem."
+    prerender: true
+
+  # ─── CONFIRM ────────────────────────────────────────────────────────
+  confirm_summary:
+    text: "Here's what I have: {hazard_type_spoken} at {location_spoken}, severity {severity_spoken}. Should I submit this?"
+    prerender: false
+  reprompt_confirm_1:
+    text: "Shall I submit it? Say yes, or say change it."
+    prerender: true
+    dtmf: { "1": "yes", "2": "restart" }
+  start_over:
+    text: "No problem, let's redo it."
+    prerender: true
+
+  # ─── TERMINAL ───────────────────────────────────────────────────────
+  submitted:
+    text: "Submitted. Your reference is {short_ref}. Our team is reviewing it now. Stay safe."
+    prerender: false
+    terminal: true
+  submitted_queued:
+    # used when the downstream write is retrying — caller must never hear "failed"
+    text: "Saved. Your reference is {short_ref}. Our team will see it shortly. Stay safe."
+    prerender: false
+    terminal: true
+  sms_pin_offer:
+    text: "I'll text you a link to drop a pin on the exact spot, if that's easier."
+    prerender: true
+  timeout_exit:
+    text: "I'll let you go for now. Call back any time to report. Stay safe."
+    prerender: true
+    terminal: true
+  fatal_fallback:
+    text: "I'm having trouble on this line. Please call back in a moment, or use the Sentinel app. Sorry about that."
+    prerender: true
+    terminal: true
+
+  # ─── BACKCHANNELS (played on EOT while the extractor runs) ──────────
+  backchannel_pool:
+    variants: ["Okay.", "Got it.", "Right.", "Mm-hm."]
+    prerender: true
+    max_duration_ms: 400

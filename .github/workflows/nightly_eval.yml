@@ -1,0 +1,184 @@
+name: nightly-eval
+
+# Runs nightly at 02:00 UTC (07:30 IST — before the morning peak).
+# Also triggerable manually for on-demand scorecard generation.
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to report against"
+        required: false
+        default: "staging"
+        type: choice
+        options: [staging, prod]
+
+defaults:
+  run:
+    working-directory: ai-calling-agent
+
+env:
+  PYTHON_VERSION: "3.12"
+  UV_VERSION: "0.5.13"
+
+jobs:
+  persona-scorecard:
+    name: persona simulation scorecard
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+          cache-dependency-glob: "ai-calling-agent/uv.lock"
+
+      - name: install python
+        run: uv python install ${{ env.PYTHON_VERSION }}
+
+      - name: sync deps
+        run: uv sync --all-extras
+
+      - name: run persona simulation (all 11 personas × 10 reps)
+        run: uv run python scripts/simulate_call.py --all-personas --reps 10
+        id: sim
+
+      - name: upload scorecard artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: persona-scorecard-${{ github.run_id }}
+          path: ai-calling-agent/reports/sim_scorecard.json
+          if-no-files-found: ignore
+
+  latency-bench:
+    name: latency benchmark
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+          cache-dependency-glob: "ai-calling-agent/uv.lock"
+
+      - name: install python
+        run: uv python install ${{ env.PYTHON_VERSION }}
+
+      - name: sync deps
+        run: uv sync --all-extras
+
+      - name: latency benchmark (200 calls, 8 turns)
+        run: uv run python scripts/bench_latency.py --calls 200 --verbose
+
+  golden-regression:
+    name: golden set regression
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+          cache-dependency-glob: "ai-calling-agent/uv.lock"
+
+      - name: install python
+        run: uv python install ${{ env.PYTHON_VERSION }}
+
+      - name: sync deps
+        run: uv sync --all-extras
+
+      - name: golden regression suite
+        run: uv run pytest tests/golden/ -v --tb=short
+
+  chaos-suite:
+    name: chaos degraded mode tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+          cache-dependency-glob: "ai-calling-agent/uv.lock"
+
+      - name: install python
+        run: uv python install ${{ env.PYTHON_VERSION }}
+
+      - name: sync deps
+        run: uv sync --all-extras
+
+      - name: chaos suite (degraded modes)
+        run: uv run pytest tests/chaos/ -v --tb=short
+
+  security-audit:
+    name: security review
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+          cache-dependency-glob: "ai-calling-agent/uv.lock"
+
+      - name: install python
+        run: uv python install ${{ env.PYTHON_VERSION }}
+
+      - name: sync deps
+        run: uv sync --all-extras
+
+      - name: pip-audit (dependency vulnerabilities)
+        run: uv run pip-audit --strict --skip-editable
+
+      - name: security unit tests
+        run: uv run pytest tests/unit/test_security.py -v --tb=short
+
+      - name: ruff security rules (bandit-lite)
+        run: uv run ruff check . --select S
+
+  load-smoke:
+    name: load smoke (50 concurrent)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+          cache-dependency-glob: "ai-calling-agent/uv.lock"
+
+      - name: install python
+        run: uv python install ${{ env.PYTHON_VERSION }}
+
+      - name: sync deps
+        run: uv sync --all-extras
+
+      - name: 50 concurrent calls (slow tier)
+        run: uv run pytest tests/load/test_concurrent_calls.py -v -m slow --tb=short

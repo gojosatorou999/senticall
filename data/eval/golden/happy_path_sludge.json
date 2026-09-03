@@ -1,0 +1,21 @@
+{
+  "id": "happy_path_sludge",
+  "description": "Sludge/oil spill — skips ASK_DEPTH (non-flood class); confirm_location always fires with keyword extractor",
+  "script": [
+    {"kind": "transcript", "text": "yes", "confidence": 0.95},
+    {"kind": "transcript", "text": "oil spill on the beach", "confidence": 0.90},
+    {"kind": "transcript", "text": "Large oil spill visible near the jetty area, smells terrible", "confidence": 0.89},
+    {"kind": "transcript", "text": "Gangavaram port", "confidence": 0.87},
+    {"kind": "transcript", "text": "yes", "confidence": 0.96},
+    {"kind": "transcript", "text": "moderate", "confidence": 0.93},
+    {"kind": "transcript", "text": "yes", "confidence": 0.96}
+  ],
+  "expect": {
+    "terminal_node": "SUBMITTED",
+    "slots": {
+      "intent": "yes",
+      "hazard_type": "sludge_oil",
+      "severity": "moderate"
+    }
+  }
+}

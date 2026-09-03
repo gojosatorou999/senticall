@@ -1,0 +1,20 @@
+# syntax=docker/dockerfile:1.9
+# Prefect worker image for the post-call enrichment DAG (P6).
+# Kept as a stub in P0 so CI builds all three images from day one and
+# catches Dockerfile drift before it matters.
+
+FROM python:3.12-slim-bookworm
+
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      ca-certificates curl \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN groupadd --gid 1000 fg && useradd --uid 1000 --gid fg --create-home fg
+USER fg
+WORKDIR /app
+
+# Real Prefect worker command lands in P6. For now the image is a
+# well-formed placeholder that CI can build.
+CMD ["python", "-c", "print('fg_voice flows worker — populated in P6')"]

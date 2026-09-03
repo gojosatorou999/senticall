@@ -1,0 +1,78 @@
+# ── python ─────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.venv/
+.python-version.local
+.tox/
+
+# ── tooling caches ─────────────────────────────
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+reports/
+*.prof
+
+# ── env / secrets ──────────────────────────────
+.env
+.env.bak
+.env.local
+.env.*.local
+*.pem
+*.p12
+secrets/
+.aws-secrets.local.txt
+
+# ── recovered sourceless modules (source lost, .pyc kept intentionally) ──
+# *.py[cod] below would exclude these; force-added in the initial commit.
+!src/fg_voice/api/routes_gather.pyc
+!src/fg_voice/conversation/driver.pyc
+!src/fg_voice/conversation/graph.pyc
+!src/fg_voice/conversation/nodes.pyc
+!src/fg_voice/conversation/runner.pyc
+
+# ── dev-session artifacts (tunnels, local run logs, scratch DB) ─────────
+*.log
+cloudflared.exe
+data/*.db
+data/*.log
+data/logs.csv
+.hypothesis/
+.import_linter_cache/
+
+# ── IDE ────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# ── artifacts (rebuild from source) ────────────
+prompts/audio_bank/**/*.ulaw
+prompts/audio_bank/**/*.wav
+!prompts/audio_bank/**/.gitkeep
+data/gazetteer/raw/
+data/eval/generated/
+snapshots/
+*.faiss
+*.pkl
+
+# ── docker / infra local state ─────────────────
+.docker/
+infra/terraform/.terraform/
+infra/terraform/*.tfstate
+infra/terraform/*.tfstate.backup
+infra/terraform/terraform.tfvars
+infra/terraform/.terraform.lock.hcl
+
+# ── uv ─────────────────────────────────────────
+# keep uv.lock committed
+!uv.lock

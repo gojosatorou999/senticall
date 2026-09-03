@@ -1,0 +1,71 @@
+# syntax=docker/dockerfile:1.9
+#
+# Voice-agent worker image. Owns the audio path (STT WSS, denoise, TTS,
+# LLM extraction, DAG traversal). Includes the pre-rendered audio bank
+# so a cache miss on Redis doesn't cause a cold-start TTS on the hot path.
+#
+# Multi-stage:
+#   1. base   — python 3.12 slim
+#   2. builder — uv install into a wheel-cache
+#   3. runtime — copy only what's needed
+
+# ─── base ─────────────────────────────────────────────────────────
+FROM python:3.12-slim-bookworm AS base
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    UV_LINK_MODE=copy \
+    UV_COMPILE_BYTECODE=1
+
+# libgomp1: FAISS. libsndfile1: audio codec paths in later phases.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      libgomp1 libsndfile1 ca-certificates curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# ─── builder ──────────────────────────────────────────────────────
+FROM base AS builder
+
+COPY --from=ghcr.io/astral-sh/uv:0.5 /uv /usr/local/bin/uv
+
+WORKDIR /build
+
+COPY pyproject.toml README.md ./
+# uv.lock is created by `uv sync` on first run; when present, use it for
+# reproducible builds. Copy defensively.
+COPY uv.lock* ./
+
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --frozen --no-install-project --no-dev --extra rag --extra llm \
+    || uv sync --no-install-project --no-dev --extra rag --extra llm
+
+COPY src ./src
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --no-dev --extra rag --extra llm
+
+# ─── runtime ──────────────────────────────────────────────────────
+FROM base AS runtime
+
+# Non-root by default. ECS task roles handle AWS creds; nothing here
+# needs to write outside /tmp except the CSV projector, which mounts EFS.
+RUN groupadd --gid 1000 fg && useradd --uid 1000 --gid fg --create-home fg
+USER fg
+WORKDIR /app
+
+COPY --from=builder /build/.venv /app/.venv
+COPY --chown=fg:fg src /app/src
+COPY --chown=fg:fg prompts /app/prompts
+
+ENV PATH="/app/.venv/bin:$PATH" \
+    PYTHONPATH="/app/src" \
+    FG_AGENT_VERSION="unset" \
+    AUDIO_BANK_PATH="/app/prompts/audio_bank/en-IN"
+
+EXPOSE 8081
+HEALTHCHECK --interval=15s --timeout=3s --start-period=20s --retries=3 \
+    CMD curl -fs http://localhost:8081/healthz || exit 1
+
+# The agent worker is invoked by ECS with the concurrent-calls args.
+# For P0 we just serve /healthz so the container is proven end-to-end.
+CMD ["uvicorn", "fg_voice.main:app", "--host", "0.0.0.0", "--port", "8081"]

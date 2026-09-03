@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "locale": "en-IN",
+  "voice_id": "unset",
+  "prompts": {},
+  "note": "Populated by scripts/render_audio_bank.py in P2."
+}

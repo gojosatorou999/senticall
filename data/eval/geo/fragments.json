@@ -1,0 +1,2539 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-17",
+  "description": "Geo-resolution eval set. 300 spoken location fragments across AP + TG districts + mandals + coastal POIs. Each row has an `expected` canonical name that the resolver's top_entry.canonical_name must match. The `prior` field simulates the caller-side geographic prior (msisdn state/circle, prior reports).",
+  "notes": [
+    "P4 production eval set. Covers exact-name, variant, substring inside a phrase, common STT mishears, ambiguous/prior-dependent, compound multi-word, mandal-level, and negative/edge cases.",
+    "Fragments cover all 59 districts (33 TG + 26 AP), 52 coastal POIs, and a sample of ~200 mandals.",
+    "Expected values match exactly what exists in the gazetteer files (districts.json, coastal_pois.json, mandals.json)."
+  ],
+  "fragments": [
+    {
+      "id": "exact_kakinada",
+      "text": "Kakinada",
+      "expected": "Kakinada",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_vizag",
+      "text": "Vizag",
+      "expected": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_visakhapatnam",
+      "text": "Visakhapatnam",
+      "expected": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_bapatla",
+      "text": "Bapatla",
+      "expected": "Bapatla",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_hyderabad",
+      "text": "Hyderabad",
+      "expected": "Hyderabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_rk_beach",
+      "text": "RK Beach",
+      "expected": "RK Beach",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_bheemili_beach",
+      "text": "Bheemili Beach",
+      "expected": "Bheemili Beach",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_kakinada_beach",
+      "text": "Kakinada Beach",
+      "expected": "Kakinada Beach",
+      "prior_district": "Kakinada",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_uppada_beach",
+      "text": "Uppada Beach",
+      "expected": "Uppada Beach",
+      "prior_district": "Kakinada",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_kailasagiri",
+      "text": "Kailasagiri",
+      "expected": "Kailasagiri",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "substring_near_kakinada",
+      "text": "we are near Kakinada",
+      "expected": "Kakinada",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "substring_at_rk_beach",
+      "text": "I am standing at RK Beach",
+      "expected": "RK Beach",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "substring_close_to_bheemili",
+      "text": "close to Bheemili Beach",
+      "expected": "Bheemili Beach",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "substring_in_vizag",
+      "text": "we are in Vizag",
+      "expected": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "substring_at_kakinada_beach",
+      "text": "problem at Kakinada Beach",
+      "expected": "Kakinada Beach",
+      "prior_district": "Kakinada",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "substring_gopalpur_beach",
+      "text": "on Gopalpur Beach",
+      "expected": "Gopalpur Beach",
+      "prior_district": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "substring_krishnapatnam_port",
+      "text": "at Krishnapatnam Port",
+      "expected": "Krishnapatnam Port",
+      "prior_district": "Nellore",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "substring_charminar",
+      "text": "near Charminar",
+      "expected": "Charminar",
+      "prior_district": "Hyderabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "substring_hussain_sagar",
+      "text": "at Hussain Sagar",
+      "expected": "Hussain Sagar",
+      "prior_district": "Hyderabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "substring_mypadu_beach",
+      "text": "we are on Mypadu Beach",
+      "expected": "Mypadu Beach",
+      "prior_district": "Nellore",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_ramakrishna_beach",
+      "text": "Ramakrishna Beach",
+      "expected": "RK Beach",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_bheemunipatnam",
+      "text": "Bheemunipatnam",
+      "expected": "Bheemili Beach",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_tank_bund",
+      "text": "at Tank Bund",
+      "expected": "Hussain Sagar",
+      "prior_district": "Hyderabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_bezawada",
+      "text": "we are in Bezawada",
+      "expected": "Vijayawada",
+      "prior_district": "NTR",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_masulipatnam",
+      "text": "Masulipatnam Port",
+      "expected": "Machilipatnam Port",
+      "prior_district": "Krishna",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_kakanada",
+      "text": "Kakanada",
+      "expected": "Kakinada",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_vishakapatnam",
+      "text": "Vishakapatnam",
+      "expected": "Vishakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_bapatlaa",
+      "text": "Bapatlaa",
+      "expected": "Bapatla",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_kailash_giri",
+      "text": "Kailash Giri",
+      "expected": "Kailasagiri",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_tirupathi",
+      "text": "Tirupathi",
+      "expected": "Tirupati",
+      "prior_district": "Tirupati",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "district_prior_bheemili",
+      "text": "beach near me",
+      "expected": null,
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "district_prior_kakinada",
+      "text": "the port here",
+      "expected": null,
+      "prior_district": "Kakinada",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "unknown_fragment",
+      "text": "zxcvbnmqwerty",
+      "expected": null
+    },
+    {
+      "id": "empty_string",
+      "text": "",
+      "expected": null
+    },
+    {
+      "id": "exact_yanam",
+      "text": "Yanam",
+      "expected": "Yanam",
+      "prior_district": "Konaseema",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_rajahmundry",
+      "text": "Rajahmundry",
+      "expected": "Rajahmundry",
+      "prior_district": "East Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_rajamahendravaram",
+      "text": "Rajamahendravaram",
+      "expected": "Rajahmundry",
+      "prior_district": "East Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_amaravati",
+      "text": "Amaravati",
+      "expected": "Amaravati",
+      "prior_district": "Guntur",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_vijayawada",
+      "text": "Vijayawada",
+      "expected": "NTR",
+      "prior_district": "NTR",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_kondapalli",
+      "text": "Kondapalli",
+      "expected": "Kondapalli",
+      "prior_district": "NTR",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_narsapuram",
+      "text": "Narsapuram",
+      "expected": "Narsapuram",
+      "prior_district": "West Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_narasapuram",
+      "text": "Narasapuram",
+      "expected": "Narsapuram",
+      "prior_district": "West Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_perupalem_beach",
+      "text": "Perupalem Beach",
+      "expected": "Perupalem Beach",
+      "prior_district": "West Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_yarada_beach",
+      "text": "Yarada Beach",
+      "expected": "Yarada Beach",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_bapatla_beach",
+      "text": "Bapatla Beach",
+      "expected": "Bapatla Beach",
+      "prior_district": "Bapatla",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_suryalanka",
+      "text": "Suryalanka",
+      "expected": "Suryalanka Beach",
+      "prior_district": "Bapatla",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_ichchapuram",
+      "text": "Ichchapuram",
+      "expected": "Ichchapuram",
+      "prior_district": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_icchapuram",
+      "text": "Icchapuram",
+      "expected": "Ichchapuram",
+      "prior_district": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_kalingapatnam_beach",
+      "text": "Kalingapatnam Beach",
+      "expected": "Kalingapatnam Beach",
+      "prior_district": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_iskapalli_beach",
+      "text": "Iskapalli Beach",
+      "expected": "Iskapalli Beach",
+      "prior_district": "Nellore",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_manginapudi_beach",
+      "text": "Manginapudi Beach",
+      "expected": "Manginapudi Beach",
+      "prior_district": "Krishna",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_srikalahasti",
+      "text": "Sri Kalahasti",
+      "expected": "Sri Kalahasti",
+      "prior_district": "Tirupati",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_kalahasti",
+      "text": "Kalahasti",
+      "expected": "Sri Kalahasti",
+      "prior_district": "Tirupati",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_konada_beach",
+      "text": "Konada Beach",
+      "expected": "Konada Beach",
+      "prior_district": "Vizianagaram",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_baruva_beach",
+      "text": "Baruva Beach",
+      "expected": "Baruva Beach",
+      "prior_district": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_srihari_puram",
+      "text": "Srihari Puram Beach",
+      "expected": "Srihari Puram Beach",
+      "prior_district": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_bhavanapadu",
+      "text": "Bhavanapadu Port",
+      "expected": "Bhavanapadu Port",
+      "prior_district": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_kolleru_lake",
+      "text": "Kolleru Lake",
+      "expected": "Kolleru Lake",
+      "prior_district": "West Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_kolleru",
+      "text": "Kolleru",
+      "expected": "Kolleru Lake",
+      "prior_district": "West Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_adilabad",
+      "text": "Adilabad",
+      "expected": "Adilabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_bhadradri_kothagudem",
+      "text": "Bhadradri Kothagudem",
+      "expected": "Bhadradri Kothagudem",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_bhadradri_to_bhadradri_kothagudem",
+      "text": "Bhadradri",
+      "expected": "Bhadradri Kothagudem",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_kothagudem_to_bhadradri_kothagudem",
+      "text": "Kothagudem",
+      "expected": "Bhadradri Kothagudem",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_hanumakonda",
+      "text": "Hanumakonda",
+      "expected": "Hanumakonda",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_hanamkonda_to_hanumakonda",
+      "text": "Hanamkonda",
+      "expected": "Hanumakonda",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_warangal_urban_to_hanumakonda",
+      "text": "Warangal Urban",
+      "expected": "Hanumakonda",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_jagtial",
+      "text": "Jagtial",
+      "expected": "Jagtial",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_jangaon",
+      "text": "Jangaon",
+      "expected": "Jangaon",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_jayashankar_bhupalpally",
+      "text": "Jayashankar Bhupalpally",
+      "expected": "Jayashankar Bhupalpally",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_jayashankar_to_jayashankar_bhupalpally",
+      "text": "Jayashankar",
+      "expected": "Jayashankar Bhupalpally",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_bhupalapalli_to_jayashankar_bhupalpally",
+      "text": "Bhupalapalli",
+      "expected": "Jayashankar Bhupalpally",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_jogulamba_gadwal",
+      "text": "Jogulamba Gadwal",
+      "expected": "Jogulamba Gadwal",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_gadwal_to_jogulamba_gadwal",
+      "text": "Gadwal",
+      "expected": "Jogulamba Gadwal",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_kamareddy",
+      "text": "Kamareddy",
+      "expected": "Kamareddy",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_karimnagar",
+      "text": "Karimnagar",
+      "expected": "Karimnagar",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_khammam",
+      "text": "Khammam",
+      "expected": "Khammam",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_komaram_bheem_asifabad",
+      "text": "Komaram Bheem Asifabad",
+      "expected": "Komaram Bheem Asifabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_komaram_bheem_to_komaram_bheem_asifabad",
+      "text": "Komaram Bheem",
+      "expected": "Komaram Bheem Asifabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_asifabad_to_komaram_bheem_asifabad",
+      "text": "Asifabad",
+      "expected": "Komaram Bheem Asifabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_mahabubabad",
+      "text": "Mahabubabad",
+      "expected": "Mahabubabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_mahabubnagar",
+      "text": "Mahabubnagar",
+      "expected": "Mahabubnagar",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_mahbubnagar_to_mahabubnagar",
+      "text": "Mahbubnagar",
+      "expected": "Mahabubnagar",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_mancherial",
+      "text": "Mancherial",
+      "expected": "Mancherial",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_medak",
+      "text": "Medak",
+      "expected": "Medak",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_medchal_malkajgiri",
+      "text": "Medchal-Malkajgiri",
+      "expected": "Medchal-Malkajgiri",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_medchal_to_medchal_malkajgiri",
+      "text": "Medchal",
+      "expected": "Medchal-Malkajgiri",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_medchal_malkajgiri_to_medchal_malkajgiri",
+      "text": "Medchal Malkajgiri",
+      "expected": "Medchal-Malkajgiri",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_malkajgiri_to_medchal_malkajgiri",
+      "text": "Malkajgiri",
+      "expected": "Medchal-Malkajgiri",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_mulugu",
+      "text": "Mulugu",
+      "expected": "Mulugu",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_nagarkurnool",
+      "text": "Nagarkurnool",
+      "expected": "Nagarkurnool",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_nalgonda",
+      "text": "Nalgonda",
+      "expected": "Nalgonda",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_narayanpet",
+      "text": "Narayanpet",
+      "expected": "Narayanpet",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_nirmal",
+      "text": "Nirmal",
+      "expected": "Nirmal",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_nizamabad",
+      "text": "Nizamabad",
+      "expected": "Nizamabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_peddapalli",
+      "text": "Peddapalli",
+      "expected": "Peddapalli",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_rajanna_sircilla",
+      "text": "Rajanna Sircilla",
+      "expected": "Rajanna Sircilla",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_sircilla_to_rajanna_sircilla",
+      "text": "Sircilla",
+      "expected": "Rajanna Sircilla",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_ranga_reddy",
+      "text": "Ranga Reddy",
+      "expected": "Ranga Reddy",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_rangareddy_to_ranga_reddy",
+      "text": "Rangareddy",
+      "expected": "Ranga Reddy",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_rrdist_to_ranga_reddy",
+      "text": "R.R.Dist",
+      "expected": "Ranga Reddy",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_rr_district_to_ranga_reddy",
+      "text": "RR District",
+      "expected": "Ranga Reddy",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_sangareddy",
+      "text": "Sangareddy",
+      "expected": "Sangareddy",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_siddipet",
+      "text": "Siddipet",
+      "expected": "Siddipet",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_suryapet",
+      "text": "Suryapet",
+      "expected": "Suryapet",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_vikarabad",
+      "text": "Vikarabad",
+      "expected": "Vikarabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_wanaparthy",
+      "text": "Wanaparthy",
+      "expected": "Wanaparthy",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_warangal",
+      "text": "Warangal",
+      "expected": "Warangal",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_warangal_rural_to_warangal",
+      "text": "Warangal Rural",
+      "expected": "Warangal",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_yadadri_bhuvanagiri",
+      "text": "Yadadri Bhuvanagiri",
+      "expected": "Yadadri Bhuvanagiri",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_yadadri_to_yadadri_bhuvanagiri",
+      "text": "Yadadri",
+      "expected": "Yadadri Bhuvanagiri",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_bhuvanagiri_to_yadadri_bhuvanagiri",
+      "text": "Bhuvanagiri",
+      "expected": "Yadadri Bhuvanagiri",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "exact_alluri_sitharama_raju",
+      "text": "Alluri Sitharama Raju",
+      "expected": "Alluri Sitharama Raju",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_alluri_sitarama_raju_to_alluri_sitharama_raju",
+      "text": "Alluri Sitarama Raju",
+      "expected": "Alluri Sitharama Raju",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_asr_to_alluri_sitharama_raju",
+      "text": "ASR",
+      "expected": "Alluri Sitharama Raju",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_anakapalli",
+      "text": "Anakapalli",
+      "expected": "Anakapalli",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_anakapalle_to_anakapalli",
+      "text": "Anakapalle",
+      "expected": "Anakapalli",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_ananthapuramu",
+      "text": "Ananthapuramu",
+      "expected": "Ananthapuramu",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_anantapur_to_ananthapuramu",
+      "text": "Anantapur",
+      "expected": "Ananthapuramu",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_anantapuram_to_ananthapuramu",
+      "text": "Anantapuram",
+      "expected": "Ananthapuramu",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_ananthapur_to_ananthapuramu",
+      "text": "Ananthapur",
+      "expected": "Ananthapuramu",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_annamayya",
+      "text": "Annamayya",
+      "expected": "Annamayya",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_chittoor",
+      "text": "Chittoor",
+      "expected": "Chittoor",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_east_godavari",
+      "text": "East Godavari",
+      "expected": "East Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_east_godavari_district_to_east_godavari",
+      "text": "East Godavari District",
+      "expected": "East Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_eluru",
+      "text": "Eluru",
+      "expected": "Eluru",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_guntur",
+      "text": "Guntur",
+      "expected": "Guntur",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_konaseema",
+      "text": "Konaseema",
+      "expected": "Konaseema",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_dr_b_r_ambedkar_konaseema_to_konaseema",
+      "text": "Dr. B. R. Ambedkar Konaseema",
+      "expected": "Konaseema",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_ambedkar_konaseema_to_konaseema",
+      "text": "Ambedkar Konaseema",
+      "expected": "Konaseema",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_b_r_ambedkar_konaseema_to_konaseema",
+      "text": "B. R. Ambedkar Konaseema",
+      "expected": "Konaseema",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_krishna",
+      "text": "Krishna",
+      "expected": "Krishna",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_krishna_district_to_krishna",
+      "text": "Krishna District",
+      "expected": "Krishna",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_kurnool",
+      "text": "Kurnool",
+      "expected": "Kurnool",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_nandyal",
+      "text": "Nandyal",
+      "expected": "Nandyal",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_ntr",
+      "text": "NTR",
+      "expected": "NTR",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_ntr_to_ntr",
+      "text": "N.T.R.",
+      "expected": "NTR",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_n_t_r_to_ntr",
+      "text": "N T R",
+      "expected": "NTR",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_ntr_district_to_ntr",
+      "text": "NTR District",
+      "expected": "NTR",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_vijayawada_to_ntr",
+      "text": "Vijayawada",
+      "expected": "NTR",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_palnadu",
+      "text": "Palnadu",
+      "expected": "Palnadu",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_palnati_to_palnadu",
+      "text": "Palnati",
+      "expected": "Palnadu",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_parvathipuram_manyam",
+      "text": "Parvathipuram Manyam",
+      "expected": "Parvathipuram Manyam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_parvathipuram_to_parvathipuram_manyam",
+      "text": "Parvathipuram",
+      "expected": "Parvathipuram Manyam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_prakasam",
+      "text": "Prakasam",
+      "expected": "Prakasam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_ongole_to_prakasam",
+      "text": "Ongole",
+      "expected": "Prakasam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_sri_potti_sriramulu_nellore",
+      "text": "Sri Potti Sriramulu Nellore",
+      "expected": "Sri Potti Sriramulu Nellore",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_spsr_nellore_to_sri_potti_sriramulu_nellore",
+      "text": "SPSR Nellore",
+      "expected": "Sri Potti Sriramulu Nellore",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_nellore_to_sri_potti_sriramulu_nellore",
+      "text": "Nellore",
+      "expected": "Sri Potti Sriramulu Nellore",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_sri_sathya_sai",
+      "text": "Sri Sathya Sai",
+      "expected": "Sri Sathya Sai",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_sathya_sai_to_sri_sathya_sai",
+      "text": "Sathya Sai",
+      "expected": "Sri Sathya Sai",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_puttaparthi_to_sri_sathya_sai",
+      "text": "Puttaparthi",
+      "expected": "Sri Sathya Sai",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_srikakulam",
+      "text": "Srikakulam",
+      "expected": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_tirupati",
+      "text": "Tirupati",
+      "expected": "Tirupati",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_vizag_to_visakhapatnam",
+      "text": "Vizag",
+      "expected": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_visakhapatnam_district_to_visakhapatnam",
+      "text": "Visakhapatnam District",
+      "expected": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_vizianagaram",
+      "text": "Vizianagaram",
+      "expected": "Vizianagaram",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_west_godavari",
+      "text": "West Godavari",
+      "expected": "West Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_west_godavari_district_to_west_godavari",
+      "text": "West Godavari District",
+      "expected": "West Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_bhimavaram_to_west_godavari",
+      "text": "Bhimavaram",
+      "expected": "West Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_ysr_kadapa",
+      "text": "YSR Kadapa",
+      "expected": "YSR Kadapa",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_ysr_to_ysr_kadapa",
+      "text": "YSR",
+      "expected": "YSR Kadapa",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_kadapa_to_ysr_kadapa",
+      "text": "Kadapa",
+      "expected": "YSR Kadapa",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_cuddapah_to_ysr_kadapa",
+      "text": "Cuddapah",
+      "expected": "YSR Kadapa",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_ramakrishna_beach_to_rk_beach",
+      "text": "Ramakrishna Beach",
+      "expected": "RK Beach",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_r_k_beach_to_rk_beach",
+      "text": "R K Beach",
+      "expected": "RK Beach",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_rk_beach_to_rk_beach",
+      "text": "R.K. Beach",
+      "expected": "RK Beach",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_rushikonda_beach",
+      "text": "Rushikonda Beach",
+      "expected": "Rushikonda Beach",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_rushi_konda_to_rushikonda_beach",
+      "text": "Rushi Konda",
+      "expected": "Rushikonda Beach",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_rushikonda_to_rushikonda_beach",
+      "text": "Rushikonda",
+      "expected": "Rushikonda Beach",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_yarada_to_yarada_beach",
+      "text": "Yarada",
+      "expected": "Yarada Beach",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_bheemunipatnam_to_bheemili_beach",
+      "text": "Bheemunipatnam",
+      "expected": "Bheemili Beach",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_bheemli_to_bheemili_beach",
+      "text": "Bheemli",
+      "expected": "Bheemili Beach",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_visakhapatnam_port",
+      "text": "Visakhapatnam Port",
+      "expected": "Visakhapatnam Port",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_vizag_port_to_visakhapatnam_port",
+      "text": "Vizag Port",
+      "expected": "Visakhapatnam Port",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_vishakhapatnam_port_to_visakhapatnam_port",
+      "text": "Vishakhapatnam Port",
+      "expected": "Visakhapatnam Port",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_kailasa_giri_to_kailasagiri",
+      "text": "Kailasa Giri",
+      "expected": "Kailasagiri",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_kailash_giri_to_kailasagiri",
+      "text": "Kailash Giri",
+      "expected": "Kailasagiri",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_kakinada_to_kakinada_beach",
+      "text": "Kakinada",
+      "expected": "Kakinada Beach",
+      "prior_district": "Kakinada",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_kakinada_port",
+      "text": "Kakinada Port",
+      "expected": "Kakinada Port",
+      "prior_district": "Kakinada",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_kakinada_anchorage_port_to_kakinada_port",
+      "text": "Kakinada Anchorage Port",
+      "expected": "Kakinada Port",
+      "prior_district": "Kakinada",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_uppada_to_uppada_beach",
+      "text": "Uppada",
+      "expected": "Uppada Beach",
+      "prior_district": "Kakinada",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_antarvedi_beach",
+      "text": "Antarvedi Beach",
+      "expected": "Antarvedi Beach",
+      "prior_district": "Konaseema",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_antarvedi_to_antarvedi_beach",
+      "text": "Antarvedi",
+      "expected": "Antarvedi Beach",
+      "prior_district": "Konaseema",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_antervedi_to_antarvedi_beach",
+      "text": "Antervedi",
+      "expected": "Antarvedi Beach",
+      "prior_district": "Konaseema",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_machilipatnam_port",
+      "text": "Machilipatnam Port",
+      "expected": "Machilipatnam Port",
+      "prior_district": "Krishna",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_masulipatnam_to_machilipatnam_port",
+      "text": "Masulipatnam",
+      "expected": "Machilipatnam Port",
+      "prior_district": "Krishna",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_bandar_to_machilipatnam_port",
+      "text": "Bandar",
+      "expected": "Machilipatnam Port",
+      "prior_district": "Krishna",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_manginapudi_to_manginapudi_beach",
+      "text": "Manginapudi",
+      "expected": "Manginapudi Beach",
+      "prior_district": "Krishna",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_suryalanka_to_suryalanka_beach",
+      "text": "Suryalanka",
+      "expected": "Suryalanka Beach",
+      "prior_district": "Bapatla",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_nizampatnam_port",
+      "text": "Nizampatnam Port",
+      "expected": "Nizampatnam Port",
+      "prior_district": "Bapatla",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_nizampatnam_to_nizampatnam_port",
+      "text": "Nizampatnam",
+      "expected": "Nizampatnam Port",
+      "prior_district": "Bapatla",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_vodarevu_beach",
+      "text": "Vodarevu Beach",
+      "expected": "Vodarevu Beach",
+      "prior_district": "Prakasam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_vodarevu_to_vodarevu_beach",
+      "text": "Vodarevu",
+      "expected": "Vodarevu Beach",
+      "prior_district": "Prakasam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_chirala_beach_to_vodarevu_beach",
+      "text": "Chirala Beach",
+      "expected": "Vodarevu Beach",
+      "prior_district": "Prakasam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_ramayapatnam",
+      "text": "Ramayapatnam",
+      "expected": "Ramayapatnam",
+      "prior_district": "Prakasam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_krishnapatnam_to_krishnapatnam_port",
+      "text": "Krishnapatnam",
+      "expected": "Krishnapatnam Port",
+      "prior_district": "Nellore",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_mypadu_to_mypadu_beach",
+      "text": "Mypadu",
+      "expected": "Mypadu Beach",
+      "prior_district": "Nellore",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_ubbalamadugu",
+      "text": "Ubbalamadugu",
+      "expected": "Ubbalamadugu",
+      "prior_district": "Nellore",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_talakona_to_ubbalamadugu",
+      "text": "Talakona",
+      "expected": "Ubbalamadugu",
+      "prior_district": "Nellore",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_tada_to_ubbalamadugu",
+      "text": "Tada",
+      "expected": "Ubbalamadugu",
+      "prior_district": "Nellore",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_iskapalli_to_iskapalli_beach",
+      "text": "Iskapalli",
+      "expected": "Iskapalli Beach",
+      "prior_district": "Nellore",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_kotha_koduru",
+      "text": "Kotha Koduru",
+      "expected": "Kotha Koduru",
+      "prior_district": "Nellore",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_kotha_koduru_to_kotha_koduru",
+      "text": "Kotha Koduru",
+      "expected": "Kotha Koduru",
+      "prior_district": "Nellore",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_kothakoduru_to_kotha_koduru",
+      "text": "Kothakoduru",
+      "expected": "Kotha Koduru",
+      "prior_district": "Nellore",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_tirumala",
+      "text": "Tirumala",
+      "expected": "Tirumala",
+      "prior_district": "Tirupati",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_tirumala_hills_to_tirumala",
+      "text": "Tirumala Hills",
+      "expected": "Tirumala",
+      "prior_district": "Tirupati",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_tirumala_tirupati_to_tirumala",
+      "text": "Tirumala Tirupati",
+      "expected": "Tirumala",
+      "prior_district": "Tirupati",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_kalahasti_to_sri_kalahasti",
+      "text": "Kalahasti",
+      "expected": "Sri Kalahasti",
+      "prior_district": "Tirupati",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_naidupeta",
+      "text": "Naidupeta",
+      "expected": "Naidupeta",
+      "prior_district": "Tirupati",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_naidupet_to_naidupeta",
+      "text": "Naidupet",
+      "expected": "Naidupeta",
+      "prior_district": "Tirupati",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_srihari_puram_to_srihari_puram_beach",
+      "text": "Srihari Puram",
+      "expected": "Srihari Puram Beach",
+      "prior_district": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_sri_hari_puram_to_srihari_puram_beach",
+      "text": "Sri Hari Puram",
+      "expected": "Srihari Puram Beach",
+      "prior_district": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_baruva_to_baruva_beach",
+      "text": "Baruva",
+      "expected": "Baruva Beach",
+      "prior_district": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_kalingapatnam_to_kalingapatnam_beach",
+      "text": "Kalingapatnam",
+      "expected": "Kalingapatnam Beach",
+      "prior_district": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_icchapuram_to_ichchapuram",
+      "text": "Icchapuram",
+      "expected": "Ichchapuram",
+      "prior_district": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_gopalpur_on_sea_to_gopalpur_beach",
+      "text": "Gopalpur On Sea",
+      "expected": "Gopalpur Beach",
+      "prior_district": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_bhavanapadu_to_bhavanapadu_port",
+      "text": "Bhavanapadu",
+      "expected": "Bhavanapadu Port",
+      "prior_district": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_pentakota",
+      "text": "Pentakota",
+      "expected": "Pentakota",
+      "prior_district": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_penta_kota_to_pentakota",
+      "text": "Penta Kota",
+      "expected": "Pentakota",
+      "prior_district": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_palasa_kasibugga",
+      "text": "Palasa Kasibugga",
+      "expected": "Palasa Kasibugga",
+      "prior_district": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_palasa_to_palasa_kasibugga",
+      "text": "Palasa",
+      "expected": "Palasa Kasibugga",
+      "prior_district": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_kasibugga_to_palasa_kasibugga",
+      "text": "Kasibugga",
+      "expected": "Palasa Kasibugga",
+      "prior_district": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_konada_to_konada_beach",
+      "text": "Konada",
+      "expected": "Konada Beach",
+      "prior_district": "Vizianagaram",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_chintapalli",
+      "text": "Chintapalli",
+      "expected": "Chintapalli",
+      "prior_district": "Anakapalli",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_payakaraopeta",
+      "text": "Payakaraopeta",
+      "expected": "Payakaraopeta",
+      "prior_district": "Anakapalli",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_payakarao_peta_to_payakaraopeta",
+      "text": "Payakarao Peta",
+      "expected": "Payakaraopeta",
+      "prior_district": "Anakapalli",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_pentakota_beach",
+      "text": "Pentakota Beach",
+      "expected": "Pentakota Beach",
+      "prior_district": "Konaseema",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_pentakota_to_pentakota_beach",
+      "text": "Pentakota",
+      "expected": "Pentakota Beach",
+      "prior_district": "Konaseema",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_s_pentakota_to_pentakota_beach",
+      "text": "S Pentakota",
+      "expected": "Pentakota Beach",
+      "prior_district": "Konaseema",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_kotipalli",
+      "text": "Kotipalli",
+      "expected": "Kotipalli",
+      "prior_district": "Konaseema",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_koti_palli_to_kotipalli",
+      "text": "Koti Palli",
+      "expected": "Kotipalli",
+      "prior_district": "Konaseema",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_rajamahendravaram_to_rajahmundry",
+      "text": "Rajamahendravaram",
+      "expected": "Rajahmundry",
+      "prior_district": "East Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_rajahmahendravaram_to_rajahmundry",
+      "text": "Rajahmahendravaram",
+      "expected": "Rajahmundry",
+      "prior_district": "East Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_kovvur",
+      "text": "Kovvur",
+      "expected": "Kovvur",
+      "prior_district": "West Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_kovvuru_to_kovvur",
+      "text": "Kovvuru",
+      "expected": "Kovvur",
+      "prior_district": "West Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_narasapuram_to_narsapuram",
+      "text": "Narasapuram",
+      "expected": "Narsapuram",
+      "prior_district": "West Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_perupalem_to_perupalem_beach",
+      "text": "Perupalem",
+      "expected": "Perupalem Beach",
+      "prior_district": "West Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_kolleru_to_kolleru_lake",
+      "text": "Kolleru",
+      "expected": "Kolleru Lake",
+      "prior_district": "West Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_amaravathi_to_amaravati",
+      "text": "Amaravathi",
+      "expected": "Amaravati",
+      "prior_district": "Guntur",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "exact_bhavani_island",
+      "text": "Bhavani Island",
+      "expected": "Bhavani Island",
+      "prior_district": "Krishna",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_bhavani_islands_to_bhavani_island",
+      "text": "Bhavani Islands",
+      "expected": "Bhavani Island",
+      "prior_district": "Krishna",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_konda_palli_to_kondapalli",
+      "text": "Konda Palli",
+      "expected": "Kondapalli",
+      "prior_district": "NTR",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_bezawada_to_vijayawada",
+      "text": "Bezawada",
+      "expected": "Vijayawada",
+      "prior_district": "NTR",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "variant_hussain_sagar_lake_to_hussain_sagar",
+      "text": "Hussain Sagar Lake",
+      "expected": "Hussain Sagar",
+      "prior_district": "Hyderabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_tank_bund_to_hussain_sagar",
+      "text": "Tank Bund",
+      "expected": "Hussain Sagar",
+      "prior_district": "Hyderabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "variant_char_minar_to_charminar",
+      "text": "Char Minar",
+      "expected": "Charminar",
+      "prior_district": "Hyderabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "substring_flooding_at_rushikonda_beach",
+      "text": "flooding at Rushikonda Beach",
+      "expected": "Rushikonda Beach",
+      "prior_state": "Andhra Pradesh",
+      "prior_district": "Visakhapatnam"
+    },
+    {
+      "id": "substring_water_near_antarvedi_beach",
+      "text": "water rising near Antarvedi Beach",
+      "expected": "Antarvedi Beach",
+      "prior_state": "Andhra Pradesh",
+      "prior_district": "Konaseema"
+    },
+    {
+      "id": "substring_road_blocked_vodarevu_beach",
+      "text": "road blocked at Vodarevu Beach",
+      "expected": "Vodarevu Beach",
+      "prior_state": "Andhra Pradesh",
+      "prior_district": "Prakasam"
+    },
+    {
+      "id": "substring_iam_at_nizampatnam_port",
+      "text": "I am at Nizampatnam Port",
+      "expected": "Nizampatnam Port",
+      "prior_state": "Andhra Pradesh",
+      "prior_district": "Bapatla"
+    },
+    {
+      "id": "substring_help_in_machilipatnam_port",
+      "text": "help needed in Machilipatnam Port",
+      "expected": "Machilipatnam Port",
+      "prior_state": "Andhra Pradesh",
+      "prior_district": "Krishna"
+    },
+    {
+      "id": "substring_between_bhavani_island_river",
+      "text": "between Bhavani Island and the river",
+      "expected": "Bhavani Island",
+      "prior_state": "Andhra Pradesh",
+      "prior_district": "Krishna"
+    },
+    {
+      "id": "substring_tirumala_flooded",
+      "text": "Tirumala area is flooded",
+      "expected": "Tirumala",
+      "prior_state": "Andhra Pradesh",
+      "prior_district": "Tirupati"
+    },
+    {
+      "id": "substring_naidupeta_junction",
+      "text": "standing near Naidupeta junction",
+      "expected": "Naidupeta",
+      "prior_state": "Andhra Pradesh",
+      "prior_district": "Tirupati"
+    },
+    {
+      "id": "substring_flooding_at_kovvur",
+      "text": "flooding at Kovvur",
+      "expected": "Kovvur",
+      "prior_state": "Andhra Pradesh",
+      "prior_district": "West Godavari"
+    },
+    {
+      "id": "substring_water_near_pentakota_beach",
+      "text": "water rising near Pentakota Beach",
+      "expected": "Pentakota Beach",
+      "prior_state": "Andhra Pradesh",
+      "prior_district": "Konaseema"
+    },
+    {
+      "id": "substring_road_blocked_kotipalli",
+      "text": "road blocked at Kotipalli",
+      "expected": "Kotipalli",
+      "prior_state": "Andhra Pradesh",
+      "prior_district": "Konaseema"
+    },
+    {
+      "id": "substring_iam_at_palasa_kasibugga",
+      "text": "I am at Palasa Kasibugga",
+      "expected": "Palasa Kasibugga",
+      "prior_state": "Andhra Pradesh",
+      "prior_district": "Srikakulam"
+    },
+    {
+      "id": "substring_help_in_pentakota",
+      "text": "help needed in Pentakota",
+      "expected": "Pentakota",
+      "prior_state": "Andhra Pradesh",
+      "prior_district": "Srikakulam"
+    },
+    {
+      "id": "substring_between_karimnagar_river",
+      "text": "between Karimnagar and the river",
+      "expected": "Karimnagar",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "substring_warangal_flooded",
+      "text": "Warangal area is flooded",
+      "expected": "Warangal",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "substring_nalgonda_junction",
+      "text": "standing near Nalgonda junction",
+      "expected": "Nalgonda",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "substring_flooding_at_nizamabad",
+      "text": "flooding at Nizamabad",
+      "expected": "Nizamabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "substring_water_near_adilabad",
+      "text": "water rising near Adilabad",
+      "expected": "Adilabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "substring_road_blocked_khammam",
+      "text": "road blocked at Khammam",
+      "expected": "Khammam",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "substring_iam_at_siddipet",
+      "text": "I am at Siddipet",
+      "expected": "Siddipet",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "substring_help_in_mancherial",
+      "text": "help needed in Mancherial",
+      "expected": "Mancherial",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "substring_between_medak_river",
+      "text": "between Medak and the river",
+      "expected": "Medak",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "substring_chittoor_flooded",
+      "text": "Chittoor area is flooded",
+      "expected": "Chittoor",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "substring_kurnool_junction",
+      "text": "standing near Kurnool junction",
+      "expected": "Kurnool",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "substring_flooding_at_guntur",
+      "text": "flooding at Guntur",
+      "expected": "Guntur",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "substring_water_near_eluru",
+      "text": "water rising near Eluru",
+      "expected": "Eluru",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "substring_road_blocked_tenali",
+      "text": "road blocked at Tenali",
+      "expected": "Tenali",
+      "prior_state": "Andhra Pradesh",
+      "prior_district": "Guntur"
+    },
+    {
+      "id": "substring_iam_at_bhimavaram",
+      "text": "I am at Bhimavaram",
+      "expected": "Bhimavaram",
+      "prior_state": "Andhra Pradesh",
+      "prior_district": "West Godavari"
+    },
+    {
+      "id": "substring_help_in_chirala",
+      "text": "help needed in Chirala",
+      "expected": "Chirala",
+      "prior_state": "Andhra Pradesh",
+      "prior_district": "Prakasam"
+    },
+    {
+      "id": "substring_between_gudivada_river",
+      "text": "between Gudivada and the river",
+      "expected": "Gudivada",
+      "prior_state": "Andhra Pradesh",
+      "prior_district": "Krishna"
+    },
+    {
+      "id": "phonetic_karimnaagar",
+      "text": "Karimnaagar",
+      "expected": "Karimnagar",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "phonetic_nizzamabad",
+      "text": "Nizzamabad",
+      "expected": "Nizamabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "phonetic_warrangal",
+      "text": "Warrangal",
+      "expected": "Warangal",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "phonetic_kammam",
+      "text": "Kammam",
+      "expected": "Khammam",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "phonetic_mahaboobnagar",
+      "text": "Mahaboobnagar",
+      "expected": "Mahabubnagar",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "phonetic_sangareddi",
+      "text": "Sangareddi",
+      "expected": "Sangareddy",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "phonetic_siddpet",
+      "text": "Siddpet",
+      "expected": "Siddipet",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "phonetic_adilabaat",
+      "text": "Adilabaat",
+      "expected": "Adilabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "phonetic_manchiriyal",
+      "text": "Manchiriyal",
+      "expected": "Mancherial",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "phonetic_medhak",
+      "text": "Medhak",
+      "expected": "Medak",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "phonetic_suryapeth",
+      "text": "Suryapeth",
+      "expected": "Suryapet",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "phonetic_naagarakurnool",
+      "text": "Naagarakurnool",
+      "expected": "Nagarkurnool",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "phonetic_pedapalli",
+      "text": "Pedapalli",
+      "expected": "Peddapalli",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "phonetic_vikaraaabad",
+      "text": "Vikaraaabad",
+      "expected": "Vikarabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "phonetic_anantapoor",
+      "text": "Anantapoor",
+      "expected": "Ananthapuramu",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_cuttoor",
+      "text": "Cuttoor",
+      "expected": "Chittoor",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_kurnul",
+      "text": "Kurnul",
+      "expected": "Kurnool",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_srikakulm",
+      "text": "Srikakulm",
+      "expected": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_vishakhapatanam",
+      "text": "Vishakhapatanam",
+      "expected": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_vizainagaram",
+      "text": "Vizainagaram",
+      "expected": "Vizianagaram",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_praksam",
+      "text": "Praksam",
+      "expected": "Prakasam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_gudiwada",
+      "text": "Gudiwada",
+      "expected": "Gudivada",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_rushikanda",
+      "text": "Rushikanda",
+      "expected": "Rushikonda Beach",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_bheemli",
+      "text": "Bheemli",
+      "expected": "Bheemili Beach",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_machlipatnam",
+      "text": "Machlipatnam",
+      "expected": "Machilipatnam Port",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_antarvedi",
+      "text": "Antarvedi",
+      "expected": "Antarvedi Beach",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_vodarevu",
+      "text": "Vodarevu",
+      "expected": "Vodarevu Beach",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_chirla",
+      "text": "Chirla",
+      "expected": "Chirala",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_ongle",
+      "text": "Ongle",
+      "expected": "Ongole",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_tenli",
+      "text": "Tenli",
+      "expected": "Tenali",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_rajamandry",
+      "text": "Rajamandry",
+      "expected": "Rajahmundry",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_guntoor",
+      "text": "Guntoor",
+      "expected": "Guntur",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_eloor",
+      "text": "Eloor",
+      "expected": "Eluru",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_peddaapuram",
+      "text": "Peddaapuram",
+      "expected": "Peddapuram",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_pitapuram",
+      "text": "Pitapuram",
+      "expected": "Pithapuram",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "phonetic_rayjachoti",
+      "text": "Rayjachoti",
+      "expected": "Rayachoti",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "mandal_exact_bodhan_nizamabad",
+      "text": "Bodhan",
+      "expected": "Bodhan",
+      "prior_district": "Nizamabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "mandal_exact_rajahmundry_east_godavari",
+      "text": "Rajahmundry",
+      "expected": "Rajahmundry",
+      "prior_district": "East Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "mandal_exact_madakasira_ananthapuramu",
+      "text": "Madakasira",
+      "expected": "Madakasira",
+      "prior_district": "Ananthapuramu",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "mandal_exact_kovvur_sri_potti_sriramulu_nellore",
+      "text": "Kovvur",
+      "expected": "Kovvur",
+      "prior_district": "Sri Potti Sriramulu Nellore",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "mandal_exact_kandukur_prakasam",
+      "text": "Kandukur",
+      "expected": "Kandukur",
+      "prior_district": "Prakasam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "mandal_exact_pattikonda_kurnool",
+      "text": "Pattikonda",
+      "expected": "Pattikonda",
+      "prior_district": "Kurnool",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "mandal_exact_guruzala_guntur",
+      "text": "Guruzala",
+      "expected": "Guruzala",
+      "prior_district": "Guntur",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "mandal_exact_pithapuram_east_godavari",
+      "text": "Pithapuram",
+      "expected": "Pithapuram",
+      "prior_district": "East Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "mandal_exact_alampur_mahbubnagar",
+      "text": "Alampur",
+      "expected": "Alampur",
+      "prior_district": "Mahbubnagar",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "mandal_exact_kakinada_east_godavari",
+      "text": "Kakinada",
+      "expected": "Kakinada",
+      "prior_district": "East Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "mandal_exact_medak_medak",
+      "text": "Medak",
+      "expected": "Medak",
+      "prior_district": "Medak",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "mandal_exact_proddatur_ysr",
+      "text": "Proddatur",
+      "expected": "Proddatur",
+      "prior_district": "Y.S.R.",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "mandal_exact_rayadurg_ananthapuramu",
+      "text": "Rayadurg",
+      "expected": "Rayadurg",
+      "prior_district": "Ananthapuramu",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "mandal_exact_penukonda_ananthapuramu",
+      "text": "Penukonda",
+      "expected": "Penukonda",
+      "prior_district": "Ananthapuramu",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "mandal_exact_kottapeta_east_godavari",
+      "text": "Kottapeta",
+      "expected": "Kottapeta",
+      "prior_district": "East Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "mandal_exact_koilkuntla_kurnool",
+      "text": "Koilkuntla",
+      "expected": "Koilkuntla",
+      "prior_district": "Kurnool",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "mandal_exact_chirala_prakasam",
+      "text": "Chirala",
+      "expected": "Chirala",
+      "prior_district": "Prakasam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "mandal_exact_sirsilla_karimnagar",
+      "text": "Sirsilla",
+      "expected": "Sirsilla",
+      "prior_district": "Karimnagar",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "mandal_exact_zahirabad_medak",
+      "text": "Zahirabad",
+      "expected": "Zahirabad",
+      "prior_district": "Medak",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "mandal_exact_jangaon_warangal",
+      "text": "Jangaon",
+      "expected": "Jangaon",
+      "prior_district": "Warangal",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "mandal_exact_kalwakurti_mahbubnagar",
+      "text": "Kalwakurti",
+      "expected": "Kalwakurti",
+      "prior_district": "Mahbubnagar",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "mandal_exact_allagadda_kurnool",
+      "text": "Allagadda",
+      "expected": "Allagadda",
+      "prior_district": "Kurnool",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "mandal_exact_ibrahimpatan_ranga_reddy",
+      "text": "Ibrahimpatan",
+      "expected": "Ibrahimpatan",
+      "prior_district": "Ranga Reddy",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "mandal_exact_kamalapuram_ysr",
+      "text": "Kamalapuram",
+      "expected": "Kamalapuram",
+      "prior_district": "Y.S.R.",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "mandal_exact_kurnool_kurnool",
+      "text": "Kurnool",
+      "expected": "Kurnool",
+      "prior_district": "Kurnool",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "mandal_exact_asifabad_adilabad",
+      "text": "Asifabad",
+      "expected": "Asifabad",
+      "prior_district": "Adilabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "mandal_exact_jogipet_medak",
+      "text": "Jogipet",
+      "expected": "Jogipet",
+      "prior_district": "Medak",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "mandal_exact_nellore_sri_potti_sriramulu_nellore",
+      "text": "Nellore",
+      "expected": "Nellore",
+      "prior_district": "Sri Potti Sriramulu Nellore",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "mandal_exact_dharmavaram_ananthapuramu",
+      "text": "Dharmavaram",
+      "expected": "Dharmavaram",
+      "prior_district": "Ananthapuramu",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "mandal_exact_avanigadda_krishna",
+      "text": "Avanigadda",
+      "expected": "Avanigadda",
+      "prior_district": "Krishna",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "compound_near_kakinada_port",
+      "text": "near Kakinada Port area",
+      "expected": "Kakinada Port",
+      "prior_district": "Kakinada",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "compound_vizag_port_area",
+      "text": "at Vizag Port",
+      "expected": "Visakhapatnam Port",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "compound_rushikonda_vizag",
+      "text": "Rushikonda in Vizag",
+      "expected": "Rushikonda Beach",
+      "prior_district": "Visakhapatnam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "compound_antarvedi_konaseema",
+      "text": "Antarvedi in Konaseema district",
+      "expected": "Antarvedi Beach",
+      "prior_district": "Konaseema",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "compound_chirala_beach",
+      "text": "Chirala Beach area",
+      "expected": "Vodarevu Beach",
+      "prior_district": "Prakasam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "compound_rajahmundry_godavari",
+      "text": "Rajahmundry on the Godavari",
+      "expected": "Rajahmundry",
+      "prior_district": "East Godavari",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "compound_machilipatnam_coast",
+      "text": "Machilipatnam coast",
+      "expected": "Machilipatnam Port",
+      "prior_district": "Krishna",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "compound_nellore_coast",
+      "text": "Nellore coastal area",
+      "expected": "Sri Potti Sriramulu Nellore",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "compound_srikakulam_coast",
+      "text": "Srikakulam coast",
+      "expected": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "compound_guntur_city",
+      "text": "Guntur city",
+      "expected": "Guntur",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "compound_warangal_city",
+      "text": "Warangal city centre",
+      "expected": "Warangal",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "compound_karimnagar_town",
+      "text": "Karimnagar town",
+      "expected": "Karimnagar",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "compound_nizamabad_area",
+      "text": "Nizamabad area",
+      "expected": "Nizamabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "compound_medchal_outskirts",
+      "text": "Medchal outskirts",
+      "expected": "Medchal-Malkajgiri",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "compound_hussainsagar_hyderabad",
+      "text": "Hussain Sagar Lake in Hyderabad",
+      "expected": "Hussain Sagar",
+      "prior_district": "Hyderabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "compound_tirumala_tirupati",
+      "text": "Tirumala near Tirupati",
+      "expected": "Tirumala",
+      "prior_district": "Tirupati",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "compound_bapatla_coast",
+      "text": "Bapatla coastal region",
+      "expected": "Bapatla",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "compound_sriharipuram_coast",
+      "text": "Srihari Puram coastal area",
+      "expected": "Srihari Puram Beach",
+      "prior_district": "Srikakulam",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "compound_kondapalli_ntr",
+      "text": "Kondapalli in NTR district",
+      "expected": "Kondapalli",
+      "prior_district": "NTR",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "compound_amaravati_capital",
+      "text": "Amaravati capital area",
+      "expected": "Amaravati",
+      "prior_district": "Guntur",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "ambiguous_flooding_here",
+      "text": "flooding here",
+      "expected": null
+    },
+    {
+      "id": "ambiguous_near_the_beach",
+      "text": "near the beach",
+      "expected": null,
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "ambiguous_water_everywhere",
+      "text": "water everywhere",
+      "expected": null
+    },
+    {
+      "id": "ambiguous_at_the_port",
+      "text": "at the port",
+      "expected": null,
+      "prior_district": "Kakinada",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "ambiguous_my_village",
+      "text": "my village",
+      "expected": null
+    },
+    {
+      "id": "ambiguous_near_river",
+      "text": "near the river",
+      "expected": null,
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "ambiguous_temple_area",
+      "text": "temple area",
+      "expected": null,
+      "prior_district": "Tirupati",
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "ambiguous_market_area",
+      "text": "market area",
+      "expected": null,
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "ambiguous_main_road",
+      "text": "main road",
+      "expected": null
+    },
+    {
+      "id": "ambiguous_lake_side",
+      "text": "lake side",
+      "expected": null,
+      "prior_district": "Hyderabad",
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "ambiguous_bus_stand",
+      "text": "bus stand area",
+      "expected": null
+    },
+    {
+      "id": "ambiguous_railway_station",
+      "text": "near railway station",
+      "expected": null,
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "ambiguous_coastal_road",
+      "text": "coastal road",
+      "expected": null,
+      "prior_state": "Andhra Pradesh"
+    },
+    {
+      "id": "ambiguous_old_city",
+      "text": "old city",
+      "expected": null,
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "ambiguous_outskirts",
+      "text": "outskirts of the city",
+      "expected": null
+    },
+    {
+      "id": "negative_numbers_only",
+      "text": "12345",
+      "expected": null
+    },
+    {
+      "id": "negative_pure_gibberish",
+      "text": "asdfghjkl qwerty",
+      "expected": null
+    },
+    {
+      "id": "negative_other_state",
+      "text": "Mumbai",
+      "expected": null,
+      "prior_state": "Telangana"
+    },
+    {
+      "id": "negative_another_country",
+      "text": "London",
+      "expected": null
+    },
+    {
+      "id": "negative_single_char",
+      "text": "a",
+      "expected": null
+    },
+    {
+      "id": "negative_punctuation",
+      "text": "!!??...",
+      "expected": null
+    },
+    {
+      "id": "negative_hindi_text",
+      "text": "यहाँ बाढ़ आई है",
+      "expected": null
+    },
+    {
+      "id": "negative_telugu_text",
+      "text": "ఇక్కడ వరదలు",
+      "expected": null
+    },
+    {
+      "id": "negative_very_long",
+      "text": "I am calling from somewhere near a place that I cannot remember the name of",
+      "expected": null
+    },
+    {
+      "id": "negative_whitespace",
+      "text": "   ",
+      "expected": null
+    },
+    {
+      "id": "negative_bangalore",
+      "text": "Bangalore",
+      "expected": null
+    },
+    {
+      "id": "negative_chennai",
+      "text": "Chennai",
+      "expected": null
+    },
+    {
+      "id": "negative_delhi",
+      "text": "New Delhi",
+      "expected": null
+    },
+    {
+      "id": "edge_single_word_at",
+      "text": "at",
+      "expected": null
+    },
+    {
+      "id": "edge_single_word_near",
+      "text": "near",
+      "expected": null
+    },
+    {
+      "id": "edge_single_word_in",
+      "text": "in",
+      "expected": null
+    }
+  ]
+}

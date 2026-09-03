@@ -1,0 +1,13 @@
+{
+  "id": "not_reporting",
+  "description": "Caller declines to report — reaches NOT_REPORTING terminal",
+  "script": [
+    {"kind": "transcript", "text": "no", "confidence": 0.97}
+  ],
+  "expect": {
+    "terminal_node": "NOT_REPORTING",
+    "slots": {
+      "intent": "no"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "start_over",
+  "description": "Caller says 'change it' at confirm — restarts from ASK_HAZARD_TYPE, re-submits with corrected values",
+  "script": [
+    {"kind": "transcript", "text": "yes", "confidence": 0.95},
+    {"kind": "transcript", "text": "erosion", "confidence": 0.89},
+    {"kind": "transcript", "text": "the beach is washing away near the bund", "confidence": 0.88},
+    {"kind": "transcript", "text": "Kalingapatnam", "confidence": 0.84},
+    {"kind": "transcript", "text": "yes", "confidence": 0.95},
+    {"kind": "transcript", "text": "moderate", "confidence": 0.92},
+    {"kind": "transcript", "text": "change it", "confidence": 0.94},
+    {"kind": "transcript", "text": "sludge oil", "confidence": 0.91},
+    {"kind": "transcript", "text": "oil slick visible near the rocks", "confidence": 0.88},
+    {"kind": "transcript", "text": "same location Kalingapatnam", "confidence": 0.83},
+    {"kind": "transcript", "text": "yes", "confidence": 0.95},
+    {"kind": "transcript", "text": "light", "confidence": 0.93},
+    {"kind": "transcript", "text": "yes", "confidence": 0.96}
+  ],
+  "expect": {
+    "terminal_node": "SUBMITTED",
+    "slots": {
+      "intent": "yes",
+      "hazard_type": "sludge_oil",
+      "severity": "light"
+    }
+  }
+}

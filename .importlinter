@@ -1,0 +1,47 @@
+; Enforces the architecture invariants from CLAUDE.md.
+; Run with: uv run lint-imports  (or `make lint`).
+
+[importlinter]
+root_packages =
+    fg_voice
+
+; ── §2.4 The agent does not give safety advice ───────────────────
+; conversation/ must never import the SOP retriever, which could produce
+; free-form caller-facing text. This is the concrete enforcement of the
+; safety invariant.
+[importlinter:contract:conversation-forbids-sop]
+name = conversation must not import the SOP retriever
+type = forbidden
+source_modules =
+    fg_voice.conversation
+forbidden_modules =
+    fg_voice.rag.ingest_sop
+
+; ── §2.1 The LLM never controls the flow ─────────────────────────
+; conversation/ orchestrates; it does not call extraction internals directly.
+; It may only depend on the extraction package's public schema types.
+; This forces the LLM call to go through the extractor's typed interface.
+[importlinter:contract:conversation-decoupled-from-persistence]
+name = conversation must not import persistence internals
+type = forbidden
+source_modules =
+    fg_voice.conversation
+forbidden_modules =
+    fg_voice.persistence.repo
+    fg_voice.persistence.csv_projector
+    fg_voice.persistence.s3_sync
+
+; ── Layered architecture ─────────────────────────────────────────
+; Prevents low-level modules from reaching back up into orchestration.
+[importlinter:contract:layered]
+name = layered dependencies
+type = layers
+layers =
+    fg_voice.main
+    fg_voice.api
+    fg_voice.enrichment
+    fg_voice.conversation
+    fg_voice.pipeline
+    fg_voice.extraction | fg_voice.rag | fg_voice.persistence
+    fg_voice.telephony | fg_voice.audio
+    fg_voice.obs | fg_voice.config

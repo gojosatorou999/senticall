@@ -1,0 +1,14 @@
+{
+  "id": "silent_caller_timeout",
+  "description": "Silent caller — exhausts reprompt ladder at ASK_INTENT: 4 no-inputs → attempt 0→1→2→3→4>MAX_ATTEMPTS → TIMEOUT_EXIT",
+  "script": [
+    {"kind": "no_input"},
+    {"kind": "no_input"},
+    {"kind": "no_input"},
+    {"kind": "no_input"}
+  ],
+  "expect": {
+    "terminal_node": "TIMEOUT_EXIT",
+    "slots": {}
+  }
+}

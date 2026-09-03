@@ -1,0 +1,39 @@
+# syntax=docker/dockerfile:1.9
+# Webhook + reports API image. No audio path, no RAG snapshots — small
+# and fast to roll. Same Python base as the agent for shared caching.
+
+FROM python:3.12-slim-bookworm AS base
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    UV_LINK_MODE=copy \
+    UV_COMPILE_BYTECODE=1
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      ca-certificates curl \
+    && rm -rf /var/lib/apt/lists/*
+
+FROM base AS builder
+COPY --from=ghcr.io/astral-sh/uv:0.5 /uv /usr/local/bin/uv
+WORKDIR /build
+COPY pyproject.toml README.md ./
+COPY uv.lock* ./
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --frozen --no-install-project --no-dev \
+    || uv sync --no-install-project --no-dev
+COPY src ./src
+RUN --mount=type=cache,target=/root/.cache/uv uv sync --no-dev
+
+FROM base AS runtime
+RUN groupadd --gid 1000 fg && useradd --uid 1000 --gid fg --create-home fg
+USER fg
+WORKDIR /app
+COPY --from=builder /build/.venv /app/.venv
+COPY --chown=fg:fg src /app/src
+ENV PATH="/app/.venv/bin:$PATH" PYTHONPATH="/app/src"
+
+EXPOSE 8080
+HEALTHCHECK --interval=15s --timeout=3s --start-period=15s --retries=3 \
+    CMD curl -fs http://localhost:8080/healthz || exit 1
+
+CMD ["uvicorn", "fg_voice.main:app", "--host", "0.0.0.0", "--port", "8080"]

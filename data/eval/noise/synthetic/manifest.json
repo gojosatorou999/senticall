@@ -1,0 +1,324 @@
+{
+  "utterances": [
+    {
+      "id": "intent_yes_aman",
+      "wav": "utterances/intent_yes_aman.wav",
+      "transcript": "yes",
+      "slot_extractor": "intent",
+      "expected_slot": "yes"
+    },
+    {
+      "id": "intent_yes_rishi",
+      "wav": "utterances/intent_yes_rishi.wav",
+      "transcript": "yes",
+      "slot_extractor": "intent",
+      "expected_slot": "yes"
+    },
+    {
+      "id": "intent_yes_tara",
+      "wav": "utterances/intent_yes_tara.wav",
+      "transcript": "yes",
+      "slot_extractor": "intent",
+      "expected_slot": "yes"
+    },
+    {
+      "id": "intent_yes_v2_aman",
+      "wav": "utterances/intent_yes_v2_aman.wav",
+      "transcript": "yes I am reporting",
+      "slot_extractor": "intent",
+      "expected_slot": "yes"
+    },
+    {
+      "id": "intent_yes_v2_rishi",
+      "wav": "utterances/intent_yes_v2_rishi.wav",
+      "transcript": "yes I am reporting",
+      "slot_extractor": "intent",
+      "expected_slot": "yes"
+    },
+    {
+      "id": "intent_yes_v2_tara",
+      "wav": "utterances/intent_yes_v2_tara.wav",
+      "transcript": "yes I am reporting",
+      "slot_extractor": "intent",
+      "expected_slot": "yes"
+    },
+    {
+      "id": "intent_no_aman",
+      "wav": "utterances/intent_no_aman.wav",
+      "transcript": "no",
+      "slot_extractor": "intent",
+      "expected_slot": "no"
+    },
+    {
+      "id": "intent_no_rishi",
+      "wav": "utterances/intent_no_rishi.wav",
+      "transcript": "no",
+      "slot_extractor": "intent",
+      "expected_slot": "no"
+    },
+    {
+      "id": "intent_no_tara",
+      "wav": "utterances/intent_no_tara.wav",
+      "transcript": "no",
+      "slot_extractor": "intent",
+      "expected_slot": "no"
+    },
+    {
+      "id": "intent_no_v2_aman",
+      "wav": "utterances/intent_no_v2_aman.wav",
+      "transcript": "no I am not reporting",
+      "slot_extractor": "intent",
+      "expected_slot": "no"
+    },
+    {
+      "id": "intent_no_v2_rishi",
+      "wav": "utterances/intent_no_v2_rishi.wav",
+      "transcript": "no I am not reporting",
+      "slot_extractor": "intent",
+      "expected_slot": "no"
+    },
+    {
+      "id": "intent_no_v2_tara",
+      "wav": "utterances/intent_no_v2_tara.wav",
+      "transcript": "no I am not reporting",
+      "slot_extractor": "intent",
+      "expected_slot": "no"
+    },
+    {
+      "id": "hazard_storm_aman",
+      "wav": "utterances/hazard_storm_aman.wav",
+      "transcript": "there is a storm",
+      "slot_extractor": "hazard_type",
+      "expected_slot": "storm"
+    },
+    {
+      "id": "hazard_storm_rishi",
+      "wav": "utterances/hazard_storm_rishi.wav",
+      "transcript": "there is a storm",
+      "slot_extractor": "hazard_type",
+      "expected_slot": "storm"
+    },
+    {
+      "id": "hazard_storm_tara",
+      "wav": "utterances/hazard_storm_tara.wav",
+      "transcript": "there is a storm",
+      "slot_extractor": "hazard_type",
+      "expected_slot": "storm"
+    },
+    {
+      "id": "hazard_storm_v2_aman",
+      "wav": "utterances/hazard_storm_v2_aman.wav",
+      "transcript": "cyclone damage here",
+      "slot_extractor": "hazard_type",
+      "expected_slot": "storm"
+    },
+    {
+      "id": "hazard_storm_v2_rishi",
+      "wav": "utterances/hazard_storm_v2_rishi.wav",
+      "transcript": "cyclone damage here",
+      "slot_extractor": "hazard_type",
+      "expected_slot": "storm"
+    },
+    {
+      "id": "hazard_storm_v2_tara",
+      "wav": "utterances/hazard_storm_v2_tara.wav",
+      "transcript": "cyclone damage here",
+      "slot_extractor": "hazard_type",
+      "expected_slot": "storm"
+    },
+    {
+      "id": "hazard_sludge_aman",
+      "wav": "utterances/hazard_sludge_aman.wav",
+      "transcript": "there is oil sludge on the beach",
+      "slot_extractor": "hazard_type",
+      "expected_slot": "sludge_oil"
+    },
+    {
+      "id": "hazard_sludge_rishi",
+      "wav": "utterances/hazard_sludge_rishi.wav",
+      "transcript": "there is oil sludge on the beach",
+      "slot_extractor": "hazard_type",
+      "expected_slot": "sludge_oil"
+    },
+    {
+      "id": "hazard_sludge_tara",
+      "wav": "utterances/hazard_sludge_tara.wav",
+      "transcript": "there is oil sludge on the beach",
+      "slot_extractor": "hazard_type",
+      "expected_slot": "sludge_oil"
+    },
+    {
+      "id": "hazard_tide_aman",
+      "wav": "utterances/hazard_tide_aman.wav",
+      "transcript": "the tide is very unusual",
+      "slot_extractor": "hazard_type",
+      "expected_slot": "abnormal_tide"
+    },
+    {
+      "id": "hazard_tide_rishi",
+      "wav": "utterances/hazard_tide_rishi.wav",
+      "transcript": "the tide is very unusual",
+      "slot_extractor": "hazard_type",
+      "expected_slot": "abnormal_tide"
+    },
+    {
+      "id": "hazard_tide_tara",
+      "wav": "utterances/hazard_tide_tara.wav",
+      "transcript": "the tide is very unusual",
+      "slot_extractor": "hazard_type",
+      "expected_slot": "abnormal_tide"
+    },
+    {
+      "id": "hazard_erosion_aman",
+      "wav": "utterances/hazard_erosion_aman.wav",
+      "transcript": "there is erosion at the coast",
+      "slot_extractor": "hazard_type",
+      "expected_slot": "erosion"
+    },
+    {
+      "id": "hazard_erosion_rishi",
+      "wav": "utterances/hazard_erosion_rishi.wav",
+      "transcript": "there is erosion at the coast",
+      "slot_extractor": "hazard_type",
+      "expected_slot": "erosion"
+    },
+    {
+      "id": "hazard_erosion_tara",
+      "wav": "utterances/hazard_erosion_tara.wav",
+      "transcript": "there is erosion at the coast",
+      "slot_extractor": "hazard_type",
+      "expected_slot": "erosion"
+    },
+    {
+      "id": "sev_light_aman",
+      "wav": "utterances/sev_light_aman.wav",
+      "transcript": "it is light",
+      "slot_extractor": "severity",
+      "expected_slot": "light"
+    },
+    {
+      "id": "sev_light_rishi",
+      "wav": "utterances/sev_light_rishi.wav",
+      "transcript": "it is light",
+      "slot_extractor": "severity",
+      "expected_slot": "light"
+    },
+    {
+      "id": "sev_light_tara",
+      "wav": "utterances/sev_light_tara.wav",
+      "transcript": "it is light",
+      "slot_extractor": "severity",
+      "expected_slot": "light"
+    },
+    {
+      "id": "sev_moderate_aman",
+      "wav": "utterances/sev_moderate_aman.wav",
+      "transcript": "moderate damage",
+      "slot_extractor": "severity",
+      "expected_slot": "moderate"
+    },
+    {
+      "id": "sev_moderate_rishi",
+      "wav": "utterances/sev_moderate_rishi.wav",
+      "transcript": "moderate damage",
+      "slot_extractor": "severity",
+      "expected_slot": "moderate"
+    },
+    {
+      "id": "sev_moderate_tara",
+      "wav": "utterances/sev_moderate_tara.wav",
+      "transcript": "moderate damage",
+      "slot_extractor": "severity",
+      "expected_slot": "moderate"
+    },
+    {
+      "id": "sev_extreme_aman",
+      "wav": "utterances/sev_extreme_aman.wav",
+      "transcript": "extreme damage everywhere",
+      "slot_extractor": "severity",
+      "expected_slot": "extreme"
+    },
+    {
+      "id": "sev_extreme_rishi",
+      "wav": "utterances/sev_extreme_rishi.wav",
+      "transcript": "extreme damage everywhere",
+      "slot_extractor": "severity",
+      "expected_slot": "extreme"
+    },
+    {
+      "id": "sev_extreme_tara",
+      "wav": "utterances/sev_extreme_tara.wav",
+      "transcript": "extreme damage everywhere",
+      "slot_extractor": "severity",
+      "expected_slot": "extreme"
+    },
+    {
+      "id": "conf_yes_aman",
+      "wav": "utterances/conf_yes_aman.wav",
+      "transcript": "yes that is correct",
+      "slot_extractor": "confirmation",
+      "expected_slot": "yes"
+    },
+    {
+      "id": "conf_yes_rishi",
+      "wav": "utterances/conf_yes_rishi.wav",
+      "transcript": "yes that is correct",
+      "slot_extractor": "confirmation",
+      "expected_slot": "yes"
+    },
+    {
+      "id": "conf_yes_tara",
+      "wav": "utterances/conf_yes_tara.wav",
+      "transcript": "yes that is correct",
+      "slot_extractor": "confirmation",
+      "expected_slot": "yes"
+    },
+    {
+      "id": "conf_no_aman",
+      "wav": "utterances/conf_no_aman.wav",
+      "transcript": "no it is not",
+      "slot_extractor": "confirmation",
+      "expected_slot": "no"
+    },
+    {
+      "id": "conf_no_rishi",
+      "wav": "utterances/conf_no_rishi.wav",
+      "transcript": "no it is not",
+      "slot_extractor": "confirmation",
+      "expected_slot": "no"
+    },
+    {
+      "id": "conf_no_tara",
+      "wav": "utterances/conf_no_tara.wav",
+      "transcript": "no it is not",
+      "slot_extractor": "confirmation",
+      "expected_slot": "no"
+    }
+  ],
+  "noise_samples": [
+    {
+      "type": "rain",
+      "wav": "noise/rain.wav"
+    },
+    {
+      "type": "wind",
+      "wav": "noise/wind.wav"
+    },
+    {
+      "type": "traffic",
+      "wav": "noise/traffic.wav"
+    },
+    {
+      "type": "crowd",
+      "wav": "noise/crowd.wav"
+    },
+    {
+      "type": "sea",
+      "wav": "noise/sea.wav"
+    },
+    {
+      "type": "handling",
+      "wav": "noise/handling.wav"
+    }
+  ]
+}

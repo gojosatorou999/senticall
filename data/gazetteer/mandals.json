@@ -1,0 +1,1081 @@
+{
+  "schema_version": 1,
+  "region": "Telangana + Andhra Pradesh",
+  "generated_at": "2026-08-16",
+  "source": "backend/boundaries/talukas/SUBDISTRICT_BOUNDARY.dbf (Survey of India), district names canonicalised via backend's DISTRICT_VARIANT_MAP",
+  "notes": [
+    "First-cut mandal gazetteer. Coverage matches whatever the backend has loaded in `boundaries/talukas/` — coastal-focused subset, not every mandal in TG+AP.",
+    "`variants` is intentionally empty in this build; hand-curate as call-review data shows variants worth adding.",
+    "The runtime geocoder prefers a district match over a mandal match for exact-input collisions (e.g. 'Kakinada'), because the district is the safer coarser answer when the caller utterance is ambiguous."
+  ],
+  "mandals": [
+    {
+      "name": "Anantapur",
+      "district": "Ananthapuramu",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Dharmavaram",
+      "district": "Ananthapuramu",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Gooty",
+      "district": "Ananthapuramu",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Hindupur",
+      "district": "Ananthapuramu",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Kadiri",
+      "district": "Ananthapuramu",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Kalyandurg",
+      "district": "Ananthapuramu",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Madakasira",
+      "district": "Ananthapuramu",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Penukonda",
+      "district": "Ananthapuramu",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Rayadurg",
+      "district": "Ananthapuramu",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Tadpatri",
+      "district": "Ananthapuramu",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Chandragiri",
+      "district": "Chittoor",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Chittoor",
+      "district": "Chittoor",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Kuppam",
+      "district": "Chittoor",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Madanapalle",
+      "district": "Chittoor",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Palmaner",
+      "district": "Chittoor",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Punganuru",
+      "district": "Chittoor",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Puttur",
+      "district": "Chittoor",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Satyavedu",
+      "district": "Chittoor",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Sri Kalahasti",
+      "district": "Chittoor",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Vayalipad",
+      "district": "Chittoor",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Addatigala",
+      "district": "East Godavari",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Amalapuram",
+      "district": "East Godavari",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Kakinada",
+      "district": "East Godavari",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Kottapeta",
+      "district": "East Godavari",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Mummidivaram",
+      "district": "East Godavari",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Peddapuram",
+      "district": "East Godavari",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Pithapuram",
+      "district": "East Godavari",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Prathipadu",
+      "district": "East Godavari",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Rajahmundry",
+      "district": "East Godavari",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Ramachandrapuram",
+      "district": "East Godavari",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Rampa Chodavaram",
+      "district": "East Godavari",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Razole",
+      "district": "East Godavari",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Tuni",
+      "district": "East Godavari",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Bapatla",
+      "district": "Guntur",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Guntur",
+      "district": "Guntur",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Guruzala",
+      "district": "Guntur",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Repalle",
+      "district": "Guntur",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Sattenapalle",
+      "district": "Guntur",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Tenali",
+      "district": "Guntur",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Vinukonda",
+      "district": "Guntur",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Avanigadda",
+      "district": "Krishna",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Gannavaram",
+      "district": "Krishna",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Gudivada",
+      "district": "Krishna",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Jaggayyapeta",
+      "district": "Krishna",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Kaikalur",
+      "district": "Krishna",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Machilipatnam",
+      "district": "Krishna",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Nuzvid",
+      "district": "Krishna",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Tiruvuru",
+      "district": "Krishna",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Vijayawada",
+      "district": "Krishna",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Adoni",
+      "district": "Kurnool",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Allagadda",
+      "district": "Kurnool",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Alur",
+      "district": "Kurnool",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Atmakur",
+      "district": "Kurnool",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Banganapalli",
+      "district": "Kurnool",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Dhone",
+      "district": "Kurnool",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Koilkuntla",
+      "district": "Kurnool",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Kurnool",
+      "district": "Kurnool",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Pattikonda",
+      "district": "Kurnool",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Addanki",
+      "district": "Prakasam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Chirala",
+      "district": "Prakasam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Darsi",
+      "district": "Prakasam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Giddalur",
+      "district": "Prakasam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Kandukur",
+      "district": "Prakasam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Kanigiri",
+      "district": "Prakasam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Markapur",
+      "district": "Prakasam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Ongole",
+      "district": "Prakasam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Podili",
+      "district": "Prakasam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Atmakur",
+      "district": "Sri Potti Sriramulu Nellore",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Gudur",
+      "district": "Sri Potti Sriramulu Nellore",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Kavali",
+      "district": "Sri Potti Sriramulu Nellore",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Kovvur",
+      "district": "Sri Potti Sriramulu Nellore",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Nellore",
+      "district": "Sri Potti Sriramulu Nellore",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Rapur",
+      "district": "Sri Potti Sriramulu Nellore",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Suluru",
+      "district": "Sri Potti Sriramulu Nellore",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Udayagiri",
+      "district": "Sri Potti Sriramulu Nellore",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Venkatagiri",
+      "district": "Sri Potti Sriramulu Nellore",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Chipurupalle",
+      "district": "Srikakulam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Ichchapuram",
+      "district": "Srikakulam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Palakonda",
+      "district": "Srikakulam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Pathapatnam",
+      "district": "Srikakulam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Sompeta",
+      "district": "Srikakulam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Srikakulam",
+      "district": "Srikakulam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Tekkali",
+      "district": "Srikakulam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Anakapalli",
+      "district": "Visakhapatnam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Bhimunipatnam",
+      "district": "Visakhapatnam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Chintapalle",
+      "district": "Visakhapatnam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Chodavaram",
+      "district": "Visakhapatnam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Paderu",
+      "district": "Visakhapatnam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Vishakhapatnam",
+      "district": "Visakhapatnam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Yellamanchili",
+      "district": "Visakhapatnam",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Bobbili",
+      "district": "Vizianagaram",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Gajapatinagaram",
+      "district": "Vizianagaram",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Parvathipuram",
+      "district": "Vizianagaram",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Puspatirega",
+      "district": "Vizianagaram",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Salur",
+      "district": "Vizianagaram",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Srungavarapukota",
+      "district": "Vizianagaram",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Vizianagaram",
+      "district": "Vizianagaram",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Bhimavaram",
+      "district": "West Godavari",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Chintalapudi",
+      "district": "West Godavari",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Eluru",
+      "district": "West Godavari",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Kovvur",
+      "district": "West Godavari",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Polavaram",
+      "district": "West Godavari",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Tadepallegudem",
+      "district": "West Godavari",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Tanuku",
+      "district": "West Godavari",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Badvel",
+      "district": "Y.S.R.",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Cuddapah",
+      "district": "Y.S.R.",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Jammalamadugu",
+      "district": "Y.S.R.",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Kamalapuram",
+      "district": "Y.S.R.",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Proddatur",
+      "district": "Y.S.R.",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Pulivendla",
+      "district": "Y.S.R.",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Rajampet",
+      "district": "Y.S.R.",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Rayachoti",
+      "district": "Y.S.R.",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Sidhout",
+      "district": "Y.S.R.",
+      "state": "Andhra Pradesh",
+      "variants": []
+    },
+    {
+      "name": "Adilabad",
+      "district": "Adilabad",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Asifabad",
+      "district": "Adilabad",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Boath",
+      "district": "Adilabad",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Chinnur",
+      "district": "Adilabad",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Khanapur",
+      "district": "Adilabad",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Laxettipet",
+      "district": "Adilabad",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Mudhol",
+      "district": "Adilabad",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Nirmal",
+      "district": "Adilabad",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Sirpur",
+      "district": "Adilabad",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Utnur",
+      "district": "Adilabad",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Hyderabad",
+      "district": "Hyderabad",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Huzurabad",
+      "district": "Karimnagar",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Jagtial",
+      "district": "Karimnagar",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Karimnagar",
+      "district": "Karimnagar",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Manthani",
+      "district": "Karimnagar",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Metpalli",
+      "district": "Karimnagar",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Sirsilla",
+      "district": "Karimnagar",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Sultanabad",
+      "district": "Karimnagar",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Bhadrachalam",
+      "district": "Khammam",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Borgampad",
+      "district": "Khammam",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Khammam",
+      "district": "Khammam",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Kottagudem",
+      "district": "Khammam",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Madhira",
+      "district": "Khammam",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Venkatapuram",
+      "district": "Khammam",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Yellandu",
+      "district": "Khammam",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Achampet",
+      "district": "Mahbubnagar",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Alampur",
+      "district": "Mahbubnagar",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Atamkur",
+      "district": "Mahbubnagar",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Farooq Nagar",
+      "district": "Mahbubnagar",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Gadwal",
+      "district": "Mahbubnagar",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Kalwakurti",
+      "district": "Mahbubnagar",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Kolhapur",
+      "district": "Mahbubnagar",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Korangal",
+      "district": "Mahbubnagar",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Mahbubnagar",
+      "district": "Mahbubnagar",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Makhtal",
+      "district": "Mahbubnagar",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Wanparthy",
+      "district": "Mahbubnagar",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Gajwel",
+      "district": "Medak",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Jogipet",
+      "district": "Medak",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Medak",
+      "district": "Medak",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Sangareddi",
+      "district": "Medak",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Siddipet",
+      "district": "Medak",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Zahirabad",
+      "district": "Medak",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Bhongir",
+      "district": "Nalgonda",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Devarkonda",
+      "district": "Nalgonda",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Huzurnagar",
+      "district": "Nalgonda",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Mirialguda",
+      "district": "Nalgonda",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Ramannapet",
+      "district": "Nalgonda",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Suriapet",
+      "district": "Nalgonda",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Armur",
+      "district": "Nizamabad",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Banswada",
+      "district": "Nizamabad",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Bodhan",
+      "district": "Nizamabad",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Kamareddy",
+      "district": "Nizamabad",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Madnur",
+      "district": "Nizamabad",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Nizamabad",
+      "district": "Nizamabad",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Yellareddi",
+      "district": "Nizamabad",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Chevella",
+      "district": "Ranga Reddy",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Ibrahimpatan",
+      "district": "Ranga Reddy",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Medchal",
+      "district": "Ranga Reddy",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Pargi",
+      "district": "Ranga Reddy",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Tandur",
+      "district": "Ranga Reddy",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Vikarabad",
+      "district": "Ranga Reddy",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Hanmakonda",
+      "district": "Warangal",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Jangaon",
+      "district": "Warangal",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Mulug",
+      "district": "Warangal",
+      "state": "Telangana",
+      "variants": []
+    },
+    {
+      "name": "Parkal",
+      "district": "Warangal",
+      "state": "Telangana",
+      "variants": []
+    }
+  ]
+}

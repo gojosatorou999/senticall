@@ -1,0 +1,23 @@
+{
+  "id": "dtmf_fallback_severity",
+  "description": "DTMF fallback on severity slot — two no-inputs arms DTMF, digit 3 = extreme. Sludge (non-flood) skips ASK_DEPTH.",
+  "script": [
+    {"kind": "transcript", "text": "yes", "confidence": 0.95},
+    {"kind": "transcript", "text": "oil spill on the beach", "confidence": 0.91},
+    {"kind": "transcript", "text": "heavy oil slick visible near the harbour wall", "confidence": 0.88},
+    {"kind": "transcript", "text": "Vizag RK Beach", "confidence": 0.86},
+    {"kind": "transcript", "text": "yes", "confidence": 0.95},
+    {"kind": "no_input"},
+    {"kind": "no_input"},
+    {"kind": "dtmf", "digit": "3"},
+    {"kind": "transcript", "text": "yes", "confidence": 0.96}
+  ],
+  "expect": {
+    "terminal_node": "SUBMITTED",
+    "slots": {
+      "intent": "yes",
+      "hazard_type": "sludge_oil",
+      "severity": "extreme"
+    }
+  }
+}
