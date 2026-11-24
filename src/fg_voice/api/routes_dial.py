@@ -11,7 +11,11 @@ this should sit behind a VPN or be removed from the public ALB routing.
 
 from __future__ import annotations
 
-from fastapi import APIRouter, Form
+import re
+import time
+from collections import deque
+
+from fastapi import APIRouter, Form, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from twilio.rest import Client  # type: ignore[import-untyped]
 
@@ -20,22 +24,72 @@ from fg_voice.obs.logging import get_logger
 
 log = get_logger(__name__)
 
-# UNAUTHENTICATED BY DELIBERATE CHOICE.
+# UNAUTHENTICATED BY DELIBERATE CHOICE, BUT GUARDED.
 #
 # The dial pad is hosted publicly (GitHub Pages) and must work with no
-# login, so the Basic-auth guard was removed from this router.
-#
-# What stops abuse today is the Twilio account tier, not this app: a trial
-# account can only dial numbers on its Verified Caller IDs list, so a
-# stranger hitting /dial/call can at most ring the owner's own phone.
-# THAT PROTECTION DISAPPEARS THE MOMENT THE TWILIO ACCOUNT IS UPGRADED —
-# at that point anyone who finds the URL can place calls billed to it.
-# Before upgrading, put this behind auth again, an allow-list of numbers,
-# or rate limiting.
+# login, so there is no Basic-auth on this router. Instead /dial/call is
+# protected by two layers that do not depend on the Twilio account tier:
+#   1. DIAL_ALLOWED_NUMBERS — only listed E.164 numbers can be dialed;
+#      empty list refuses everything (fail closed).
+#   2. Sliding-window rate limits: per client IP, per destination number,
+#      and a global hourly cap as a backstop against spoofed IPs.
 router = APIRouter(
     prefix="/dial",
     tags=["dial"],
 )
+
+_E164 = re.compile(r"^\+[1-9]\d{7,14}$")
+_WINDOW_SHORT = 600.0  # 10 min
+_WINDOW_HOUR = 3600.0
+
+
+class _SlidingWindow:
+    """Timestamps of recent events per key; prunes on every check."""
+
+    def __init__(self) -> None:
+        self._hits: dict[str, deque[float]] = {}
+
+    def retry_after(self, key: str, limit: int, window: float, now: float) -> int:
+        """0 if another event is allowed, else seconds until one would be."""
+        q = self._hits.get(key)
+        if q is None:
+            return 0
+        while q and now - q[0] >= window:
+            q.popleft()
+        if not q:
+            del self._hits[key]
+            return 0
+        if len(q) < limit:
+            return 0
+        return max(1, int(window - (now - q[0])) + 1)
+
+    def record(self, key: str, now: float) -> None:
+        self._hits.setdefault(key, deque()).append(now)
+
+
+_by_ip = _SlidingWindow()
+_by_number = _SlidingWindow()
+_global = _SlidingWindow()
+
+
+def _reset_limits() -> None:
+    """Test hook: clear all rate-limit state."""
+    global _by_ip, _by_number, _global
+    _by_ip, _by_number, _global = _SlidingWindow(), _SlidingWindow(), _SlidingWindow()
+
+
+def _allowed_numbers(raw: str) -> set[str]:
+    return {n for n in (_to_e164(p) for p in raw.split(",")) if n}
+
+
+def _client_ip(request: Request) -> str:
+    """Last X-Forwarded-For hop (the one our own proxy — ngrok/ALB — added;
+    earlier hops are client-supplied and spoofable), else the socket peer."""
+    xff = request.headers.get("x-forwarded-for", "")
+    hops = [h.strip() for h in xff.split(",") if h.strip()]
+    if hops:
+        return hops[-1]
+    return request.client.host if request.client else "unknown"
 
 _HTML = """\
 <!DOCTYPE html>
@@ -189,6 +243,7 @@ def _to_e164(raw: str) -> str:
 
 @router.post("/call")
 async def initiate_call(
+    request: Request,
     phone: str = Form(...),
 ) -> JSONResponse:
     settings = get_settings()
@@ -198,6 +253,36 @@ async def initiate_call(
         return JSONResponse({"detail": "Twilio credentials not configured"}, status_code=503)
     if not settings.twilio_phone_number:
         return JSONResponse({"detail": "TWILIO_PHONE_NUMBER not configured"}, status_code=503)
+
+    # Guard 1: allow-list (fail closed). Checked before rate limits so a
+    # refused number never consumes quota. The reply is the same whether the
+    # list is empty or just doesn't contain the number — it never reveals it.
+    if not _E164.match(phone) or phone not in _allowed_numbers(settings.dial_allowed_numbers):
+        log.warning("dial.refused_not_allowed", to=phone[:6] + "****", ip=_client_ip(request))
+        return JSONResponse(
+            {"detail": "This number is not authorised for calls from this dial pad."},
+            status_code=403,
+        )
+
+    # Guard 2: rate limits. Checked together, recorded only if all pass.
+    now = time.monotonic()
+    ip = _client_ip(request)
+    waits = (
+        _by_ip.retry_after(ip, settings.dial_limit_per_ip, _WINDOW_SHORT, now),
+        _by_number.retry_after(phone, settings.dial_limit_per_number, _WINDOW_SHORT, now),
+        _global.retry_after("all", settings.dial_limit_global_per_hour, _WINDOW_HOUR, now),
+    )
+    if any(waits):
+        wait = max(waits)
+        log.warning("dial.rate_limited", to=phone[:6] + "****", ip=ip, retry_after=wait)
+        return JSONResponse(
+            {"detail": f"Too many call requests. Try again in {wait} seconds."},
+            status_code=429,
+            headers={"Retry-After": str(wait)},
+        )
+    _by_ip.record(ip, now)
+    _by_number.record(phone, now)
+    _global.record("all", now)
 
     # Build the webhook URL from PUBLIC_WSS_BASE (wss://... → https://...)
     # so Twilio always gets the public ngrok/prod URL, not localhost.

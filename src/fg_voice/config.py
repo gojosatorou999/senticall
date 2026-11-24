@@ -49,6 +49,15 @@ class Settings(BaseSettings):
     twilio_phone_number: str = ""
     twilio_media_region: str = "sg1"
     public_wss_base: str = "wss://voice.sentinel.in"
+    # /dial/call guards. The dial pad is unauthenticated, so outbound calls
+    # are limited to this comma-separated E.164 allow-list. EMPTY = FAIL
+    # CLOSED (every number refused). Rate limits are in-process: with more
+    # than one API worker each keeps its own counters, so the effective cap
+    # is N× — acceptable for this dev helper, revisit before multi-node.
+    dial_allowed_numbers: str = ""
+    dial_limit_per_ip: int = Field(default=5, ge=1)  # per 10 min
+    dial_limit_per_number: int = Field(default=3, ge=1)  # per 10 min
+    dial_limit_global_per_hour: int = Field(default=20, ge=1)
     # Dev-only escape hatch. Skips X-Twilio-Signature verification on
     # /voice/* webhooks — necessary when a free-tier tunnel (ngrok free,
     # cloudflared) strips or interposes on request headers. NEVER enable
