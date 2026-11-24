@@ -10,6 +10,38 @@ from __future__ import annotations
 from urllib.parse import quote
 from xml.etree.ElementTree import Element, SubElement, tostring
 
+# Caller-facing voice, in one place so every TwiML path stays consistent.
+#
+# Tiers available through Twilio <Say>, least to most human-sounding:
+#   Polly.Aditi                    standard  - flat, obviously an IVR (free)
+#   Polly.Kajal-Neural             neural    - better, still reads as TTS
+#   Google.en-IN-Chirp3-HD-Aoede   generative- closest to a real person
+#
+# The default is the NEURAL tier, not the generative one, and that is a
+# latency decision rather than a cost one. Chirp3-HD is generative: Twilio
+# runs synthesis before playback can begin, on every turn, and prompts
+# carrying a variable (confirm_summary, submitted) can never be cached
+# across calls. The caller hears that synthesis as dead air in exactly the
+# place they are already waiting - right after they finished answering.
+# Neural synthesis starts fast enough not to show.
+#
+# Override with TWILIO_VOICE to trade the latency back for tone. If a call
+# fails with Twilio error 13520 (invalid voice), this string is the cause.
+# For zero per-call TTS cost AND lower latency still, pre-render the prompt
+# bank (AUDIO_BANK_PATH, scripts/render_audio_bank.py) and serve <Play>.
+LANGUAGE: str = "en-IN"
+
+
+def _voice() -> str:
+    """Configured <Say> voice. Read per call rather than bound at import
+    so TWILIO_VOICE can be changed without a code edit."""
+    from fg_voice.config import get_settings
+
+    return get_settings().twilio_voice
+
+
+VOICE: str = "Polly.Kajal-Neural"
+
 
 def connect_stream_twiml(
     wss_url: str,
@@ -41,11 +73,11 @@ def fallback_twiml(sms_link: str | None = None) -> bytes:
     app is down entirely, the caller still gets a coherent response and
     an alternative channel."""
     root = Element("Response")
-    say = SubElement(root, "Say", {"voice": "Polly.Aditi", "language": "en-IN"})
+    say = SubElement(root, "Say", {"voice": _voice(), "language": LANGUAGE})
     if sms_link:
         say.text = (
             "Sorry, our voice line is temporarily unavailable. "
-            "We're sending you a link to the Sentinel web form now. "
+            "We're sending you a link to the FloodGuard web form now. "
             "Please try calling again in a few minutes."
         )
         SubElement(root, "Sms", {}).text = f"Report a coastal hazard: {sms_link}"
@@ -53,7 +85,7 @@ def fallback_twiml(sms_link: str | None = None) -> bytes:
         say.text = (
             "Sorry, our voice line is temporarily unavailable. "
             "Please try calling again in a few minutes, "
-            "or use the Sentinel app."
+            "or use the FloodGuard app."
         )
     SubElement(root, "Hangup")
     return b'<?xml version="1.0" encoding="UTF-8"?>' + bytes(tostring(root, encoding="utf-8"))
@@ -76,20 +108,28 @@ def render_gather_step(
     *,
     gather_action: str | None,
     dtmf_map: dict[str, str] | None,
-    voice: str = "Polly.Aditi",
-    language: str = "en-IN",
-    # MUST stay "auto". A numeric value reads as "finalise after N seconds of
-    # silence", but Twilio applies it from the moment the Gather starts
-    # listening, not from speech onset — so speechTimeout="1" ended each
-    # Gather ~1 s after the prompt finished, giving the caller barely a second
-    # to begin talking and truncating anyone who paused mid-sentence. Measured:
+    voice: str | None = None,
+    language: str = LANGUAGE,
+    # The safe default, and what every unrecognised question still gets.
+    #
+    # A numeric value reads as "finalise after N seconds of silence", but on a
+    # speech+dtmf Gather Twilio also applies it before speech onset, so it
+    # doubles as the "caller hasn't started talking yet" budget. At
+    # speechTimeout="1" globally that ended each Gather ~1 s after the prompt
+    # finished, giving the caller barely a second to begin talking. Measured:
     # a 4.5 s prompt returned an empty result after 4.7 s despite a 10 s
     # no-input timeout, and callers' "yes" arrived as "yas"/"itne" or nothing.
-    # "auto" ends recognition at the first natural pause instead; the 1-2 s it
-    # appears to "cost" after the caller stops is that endpointing, not app
-    # latency (the app answers each turn in 30-70 ms). To cut perceived lag,
-    # shorten the prompts or pre-render them to the audio bank — do not put a
-    # number here.
+    #
+    # "auto" ends recognition at the first natural pause instead, but it is
+    # conservative about what counts as a pause — that is the multi-second
+    # dead air callers hear after they have plainly finished, and it is not
+    # app latency (the app answers each turn in 30-70 ms).
+    #
+    # Do not put a global number here. `conversation/eot_patch.py` sets a
+    # short numeric value per question, and only where the whole answer is
+    # one word ("yes", "moderate", "knee deep") so there is no mid-sentence
+    # pause to truncate; open-ended questions keep "auto". Tune it with
+    # GATHER_SPEECH_TIMEOUT_SEC, or set that to 0 to disable it entirely.
     speech_timeout: str = "auto",
     timeout_sec: int = 6,
     hints: str | None = None,
@@ -105,6 +145,7 @@ def render_gather_step(
       completes the Gather immediately. Speech-only Gathers omit it.
     - No caller-facing text is generated here; texts are pre-rendered
       by the caller of this function via the prompt bank (§2.2)."""
+    voice = voice or _voice()
     root = Element("Response")
     if not say_texts:
         SubElement(root, "Hangup")
@@ -161,7 +202,7 @@ def fatal_hangup_twiml(reason_code: str = "internal_error") -> bytes:
     call never leaks a raw stacktrace or a Twilio default error to the
     caller — the caller hears a short apology and hangs up."""
     root = Element("Response")
-    say = SubElement(root, "Say", {"voice": "Polly.Aditi", "language": "en-IN"})
+    say = SubElement(root, "Say", {"voice": _voice(), "language": LANGUAGE})
     say.text = (
         "Sorry, we're unable to take your call right now. Please try again shortly. Stay safe."
     )

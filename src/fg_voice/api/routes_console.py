@@ -34,7 +34,7 @@ _HTML = r"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Sentinel Voice — Call Review Console</title>
+<title>FloodGuard Voice — Call Review Console</title>
 <style>
   body { font-family: system-ui, sans-serif; margin: 0; padding: 0; background: #f5f5f5; }
   header { background: #1a3a5c; color: white; padding: 12px 20px; display: flex; align-items: center; gap: 12px; }
@@ -67,7 +67,7 @@ _HTML = r"""<!DOCTYPE html>
 </head>
 <body>
 <header>
-  <h1>Sentinel Voice</h1>
+  <h1>FloodGuard Voice</h1>
   <span class="badge">Call Review Console</span>
 </header>
 <div class="container">

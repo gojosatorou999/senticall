@@ -51,7 +51,7 @@ _HTML_TEMPLATE: Final[str] = """<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sentinel: report {short_ref}</title>
+<title>FloodGuard: report {short_ref}</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <style>
@@ -89,7 +89,7 @@ _HTML_TEMPLATE: Final[str] = """<!doctype html>
 </body></html>"""
 
 _THANKYOU_HTML: Final[str] = """<!doctype html>
-<html><head><meta charset="utf-8"><title>Sentinel</title></head>
+<html><head><meta charset="utf-8"><title>FloodGuard</title></head>
 <body style="font-family: system-ui, sans-serif; padding: 24px;">
 <h1>Pin saved</h1>
 <p>Thanks — we've attached the exact location to report

@@ -1,4 +1,4 @@
-﻿# Sentinel Voice Agent — Coastal Alert Reporting System
+﻿# FloodGuard Voice Agent — Coastal Alert Reporting System
 
 **Real-time, interruptible, noise-robust English voice agent for telephone-based coastal hazard reporting.**
 Twilio telephony → streaming perception → deterministic conversation DAG → RAG-grounded slot resolution → durable report → live CSV + `app.sentinel.in` feed.
@@ -39,7 +39,7 @@ Twilio telephony → streaming perception → deterministic conversation DAG →
 
 ### 1.1 What this system does
 
-A caller dials a Twilio number. An AI agent conducts a short, natural English conversation to collect a structured coastal hazard report, confirms it back, and submits it. The report becomes immediately visible in the Sentinel operations feed alongside app-, web-, and WhatsApp-sourced reports, and is appended to a live-updating CSV.
+A caller dials a Twilio number. An AI agent conducts a short, natural English conversation to collect a structured coastal hazard report, confirms it back, and submits it. The report becomes immediately visible in the FloodGuard operations feed alongside app-, web-, and WhatsApp-sourced reports, and is appended to a live-updating CSV.
 
 ### 1.2 In scope (v1)
 
@@ -196,7 +196,7 @@ Every external dependency has a documented degraded mode:
 | **Vector store (hot path)** | **FAISS** flat/IVF snapshot loaded into worker memory | The gazetteer is ~10⁵–10⁶ rows and read-only between ingestions. In-memory = deterministic sub-25 ms retrieval. |
 | **Lexical/fuzzy match** | `pg_trgm` offline + `rapidfuzz` + Double Metaphone in-process | Spoken Indian place names fail pure-vector matching. Phonetic + trigram + vector fused with RRF is dramatically better. |
 | **Session state** | ElastiCache Redis (7.x) | Call state, TTS audio cache, idempotency keys, outbox spillover. |
-| **Primary store** | RDS PostgreSQL 16 + PostGIS + pgvector, Multi-AZ | Same instance/schema family as the rest of Sentinel. Voice reports land in the existing `reports` table. |
+| **Primary store** | RDS PostgreSQL 16 + PostGIS + pgvector, Multi-AZ | Same instance/schema family as the rest of FloodGuard. Voice reports land in the existing `reports` table. |
 | **Workflow engine** | **Prefect 3** on Fargate (or AWS Step Functions if you prefer no extra runtime) | Post-call DAG needs retries, backfills, and observability. Prefect if you want Python-native; Step Functions if you want zero ops. |
 | **API layer** | FastAPI + Uvicorn | Same process family as the agent; native async WebSocket; Pydantic schemas shared with the extractor. |
 | **Compute** | ECS Fargate (voice workers, webhook svc, API svc) | No node management; one task ↔ N concurrent calls; scales on a custom concurrency metric. |
@@ -416,7 +416,7 @@ prompts:
 
   # ─── CONSENT (non-interruptible, kept to ~2.5 s) ────────────────────
   consent_notice:
-    text: "You've reached the Sentinel Coastal Alert line. This call is recorded."
+    text: "You've reached the FloodGuard Coastal Alert line. This call is recorded."
     barge_in: false
     prerender: true
 
@@ -539,7 +539,7 @@ prompts:
     prerender: true
     terminal: true
   fatal_fallback:
-    text: "I'm having trouble on this line. Please call back in a moment, or use the Sentinel app. Sorry about that."
+    text: "I'm having trouble on this line. Please call back in a moment, or use the FloodGuard app. Sorry about that."
     prerender: true
     terminal: true
 
@@ -1269,7 +1269,7 @@ Scale-in cooldown: 300 s     ← conservative; never drop a task with live calls
 Normal capacity assumptions are wrong exactly when the system matters most. Call volume during a cyclone landfall can be 50–100× baseline within minutes, and autoscaling reacts in tens of seconds — which is too slow.
 
 Implement `scripts/surge_mode.py`, triggerable by:
-- an IMD/INCOIS warning ingested by the existing Sentinel alerting pipeline
+- an IMD/INCOIS warning ingested by the existing FloodGuard alerting pipeline
 - a manual ops toggle
 - an automatic trigger at >70% of provisioned concurrency
 
@@ -1401,7 +1401,7 @@ Build a minimal internal page (it pays for itself in week one): filter calls by 
 | Phone number | **Never stored raw.** `HMAC-SHA256(msisdn, pepper)` with the pepper in Secrets Manager. Raw number exists only in memory during the call and in Twilio's own logs. |
 | Recordings | S3, SSE-KMS, lifecycle → Glacier at 90 d, delete at 365 d (confirm against your retention policy) |
 | Transcripts | PII-redacted copy is the working artifact; raw copy KMS-encrypted, access-logged, ops-role only |
-| Location | Precise coordinates are operationally necessary; treat as sensitive. Public-facing views should snap to a coarser grid (H3 res 8/9 — matching the existing Sentinel hex convention) unless the viewer is an authorised responder. |
+| Location | Precise coordinates are operationally necessary; treat as sensitive. Public-facing views should snap to a coarser grid (H3 res 8/9 — matching the existing FloodGuard hex convention) unless the viewer is an authorised responder. |
 | Caller identity | Not requested by the agent in v1. If added later, make it explicitly optional. |
 
 ### 17.2 India DPDP Act 2023 alignment
@@ -1895,5 +1895,5 @@ The requirement "natural human conversation, interruptible, quick" decomposes in
 ---
 
 **Document version:** 1.0
-**Owner:** Team FG / Sentinel
+**Owner:** Team FG / FloodGuard
 **Status:** Ready for P0

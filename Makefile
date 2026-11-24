@@ -1,4 +1,4 @@
-﻿# Sentinel Voice Agent — developer commands.
+﻿# FloodGuard Voice Agent — developer commands.
 # Every command must work on a fresh clone with only `uv` and Docker installed.
 
 .DEFAULT_GOAL := help

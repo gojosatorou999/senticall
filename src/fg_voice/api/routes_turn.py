@@ -46,7 +46,7 @@ _calls: dict[str, dict[str, Any]] = {}
 _MAX_TURNS = 14
 
 _OPENING = (
-    "Sentinel coastal alert line, this call is recorded. "
+    "FloodGuard coastal alert line, this call is recorded. "
     "After the beep, tell me what hazard you're reporting."
 )
 

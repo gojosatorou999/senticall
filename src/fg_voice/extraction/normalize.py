@@ -25,6 +25,13 @@ _SEVERITY_SYNONYMS: Final[dict[str, SeverityValue]] = {
     "little": "light",
     "not too bad": "light",
     "not that bad": "light",
+    # ASR near-misses for "light" on en-IN telephony audio. Observed live:
+    # a caller answering "light" was transcribed "right" and rejected.
+    # Safe here because this map is only consulted at the severity nodes —
+    # "right" means yes elsewhere, and that lookup is a different function.
+    "right": "light",
+    "lite": "light",
+    "night": "light",
     # moderate
     "moderate": "moderate",
     "medium": "moderate",
@@ -152,6 +159,13 @@ _DEPTH_SYNONYMS: Final[dict[str, DepthBand]] = {
     "shoe": "ankle",
     "knee": "knee",
     "knees": "knee",
+    # ASR near-misses for "knee"/"knee deep" on en-IN telephony audio.
+    # Observed live: "knee deep" transcribed as "neila Devi".
+    "nee": "knee",
+    "neela": "knee",
+    "neila": "knee",
+    "need deep": "knee",
+    "kneed": "knee",
     "thigh": "knee",
     "thighs": "knee",
     "waist": "waist",

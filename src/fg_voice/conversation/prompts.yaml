@@ -18,24 +18,24 @@ prompts:
 
   # ─── CONSENT (non-interruptible, kept to ~2.5 s) ────────────────────
   consent_notice:
-    text: "You've reached the Sentinel Coastal Alert line. This call is recorded."
+    text: "FloodGuard coastal helpline. This call is recorded."
     barge_in: false
     prerender: true
 
   # ─── INTENT ─────────────────────────────────────────────────────────
   ask_intent:
-    text: "Are you reporting a hazard right now? Say yes, or press 1."
+    text: "Are you reporting a hazard? Say yes, or press 1."
     prerender: true
     dtmf: { "1": "yes", "2": "no" }
   reprompt_intent_1:
-    text: "Sorry, I didn't catch that. Are you reporting a hazard?"
+    text: "Sorry, I missed that. Are you reporting a hazard?"
     prerender: true
   reprompt_intent_2:
     text: "You can say yes, or press 1. To end the call, say no, or press 2."
     prerender: true
     dtmf: { "1": "yes", "2": "no" }
   not_reporting:
-    text: "Understood. If you see anything later, call this number back any time. Stay safe."
+    text: "No problem at all. If you see anything later, just call back any time. Stay safe."
     prerender: true
     terminal: true
 
@@ -50,7 +50,7 @@ prompts:
 
   # ─── HAZARD TYPE ────────────────────────────────────────────────────
   ask_hazard_type:
-    text: "What kind of hazard is it — floods, a tsunami, storm damage, sludge or oil, unusual tides, or something else?"
+    text: "What are you seeing — floods, tsunami, storm, sludge or oil, unusual tides, or something else?"
     prerender: true
   reprompt_hazard_type_1:
     text: "Which is closest — floods, tsunami, storm, sludge, or tides?"
@@ -62,18 +62,18 @@ prompts:
 
   # ─── DESCRIPTION ────────────────────────────────────────────────────
   ask_description:
-    text: "Tell me what you're seeing. Take your time."
+    text: "Tell me what you can see."
     prerender: true
   reprompt_description_1:
-    text: "In a sentence or two — what's happening there?"
+    text: "What's happening there?"
     prerender: true
   reprompt_description_2:
-    text: "Even a few words helps. What's happening?"
+    text: "Even a few words helps. What are you seeing?"
     prerender: true
 
   # ─── LOCATION ───────────────────────────────────────────────────────
   ask_location:
-    text: "Where is this? A beach, landmark, or village name is enough."
+    text: "Where is this? A beach, landmark, or village name."
     prerender: true
   reprompt_location_1:
     text: "Which area or landmark is it near?"
@@ -90,10 +90,10 @@ prompts:
 
   # ─── SEVERITY ───────────────────────────────────────────────────────
   ask_severity:
-    text: "How bad is it right now — light, moderate, or extreme?"
+    text: "How bad is it — light, moderate, or extreme?"
     prerender: true
   reprompt_severity_1:
-    text: "Would you call it light, moderate, or extreme?"
+    text: "Light, moderate, or extreme?"
     prerender: true
   reprompt_severity_2:
     text: "Press 1 for light, 2 for moderate, 3 for extreme."
@@ -102,7 +102,7 @@ prompts:
 
   # ─── CONDITIONAL: WATER DEPTH (flood / tide / surge only) ───────────
   ask_depth:
-    text: "Roughly how deep is the water — ankle, knee, waist, or higher?"
+    text: "How deep — ankle, knee, waist, or higher than waist?"
     prerender: true
   reprompt_depth_1:
     text: "Ankle, knee, waist, or higher than waist?"
@@ -114,10 +114,10 @@ prompts:
 
   # ─── CONFIRM ────────────────────────────────────────────────────────
   confirm_summary:
-    text: "Here's what I have: {hazard_type_spoken} at {location_spoken}, severity {severity_spoken}. Should I submit this?"
+    text: "{hazard_type_spoken} at {location_spoken}, severity {severity_spoken}. Shall I send it?"
     prerender: false
   reprompt_confirm_1:
-    text: "Shall I submit it? Say yes, or say change it."
+    text: "Shall I send that in? Say yes, or say change it."
     prerender: true
     dtmf: { "1": "yes", "2": "restart" }
   start_over:
@@ -126,7 +126,7 @@ prompts:
 
   # ─── TERMINAL ───────────────────────────────────────────────────────
   submitted:
-    text: "Submitted. Your reference is {short_ref}. Our team is reviewing it now. Stay safe."
+    text: "Sent. Your reference is {short_ref}. Our team is on it. Stay safe."
     prerender: false
     terminal: true
   submitted_queued:
@@ -142,7 +142,7 @@ prompts:
     prerender: true
     terminal: true
   fatal_fallback:
-    text: "I'm having trouble on this line. Please call back in a moment, or use the Sentinel app. Sorry about that."
+    text: "I'm having trouble on this line. Please call back in a moment, or use the FloodGuard app. Sorry about that."
     prerender: true
     terminal: true
 

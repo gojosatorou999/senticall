@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FloodGuard — Dial Pad</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; padding: 20px;
+      display: flex; align-items: center; justify-content: center;
+      background: #eef2f7;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    }
+    .card {
+      background: #fff; border-radius: 14px;
+      box-shadow: 0 4px 24px rgba(0,0,0,.10);
+      padding: 32px 28px; width: 100%; max-width: 400px;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+    .logo-icon {
+      width: 42px; height: 42px; border-radius: 10px; background: #1a3a5c;
+      display: flex; align-items: center; justify-content: center; font-size: 21px;
+    }
+    .logo-text { font-size: 1rem; font-weight: 700; color: #1a3a5c; }
+    .logo-sub  { font-size: .75rem; color: #888; }
+    h2 { margin: 0 0 6px; font-size: 1.15rem; color: #1a3a5c; }
+    p.lead { margin: 0 0 22px; font-size: .85rem; color: #666; line-height: 1.45; }
+    label { display: block; font-size: .8rem; font-weight: 600; color: #444; margin-bottom: 6px; }
+    input {
+      width: 100%; padding: 12px 14px; border: 1px solid #d0d7de;
+      border-radius: 9px; font-size: 1rem; outline: none; transition: border .15s;
+      -webkit-appearance: none;
+    }
+    input:focus { border-color: #1a3a5c; }
+    .hint { font-size: .74rem; color: #999; margin: 6px 0 18px; }
+    button {
+      width: 100%; padding: 14px; background: #1a3a5c; color: #fff;
+      border: 0; border-radius: 9px; font-size: .98rem; font-weight: 600;
+      cursor: pointer; transition: background .15s;
+    }
+    button:hover:not(:disabled) { background: #14304d; }
+    button:disabled { background: #aab3bd; cursor: not-allowed; }
+    #status { margin-top: 16px; padding: 12px 14px; border-radius: 9px; font-size: .85rem; display: none; line-height: 1.45; }
+    #status.ok  { background: #e6f4ea; color: #1e6e3a; border: 1px solid #a8d5b5; }
+    #status.err { background: #fdecea; color: #a01c1c; border: 1px solid #f5aea8; }
+    .reports-link {
+      display: block; margin-top: 18px; text-align: center;
+      padding: 12px; border: 1px solid #d0d7de; border-radius: 9px;
+      text-decoration: none; color: #1a3a5c; font-size: .85rem;
+      font-weight: 600; transition: background .15s;
+    }
+    .reports-link:hover { background: #f6f8fa; }
+    .foot { margin-top: 18px; font-size: .72rem; color: #aaa; text-align: center; line-height: 1.5; }
+    .foot a { color: #7a8b9c; }
+    .reset { background: none; border: 0; color: #7a8b9c; font-size: .72rem;
+             cursor: pointer; padding: 0; width: auto; text-decoration: underline; }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">
+    <div class="logo-icon">&#127754;</div>
+    <div>
+      <div class="logo-text">FloodGuard</div>
+      <div class="logo-sub">Coastal Alert &middot; Dial Pad</div>
+    </div>
+  </div>
+
+  <h2>Call me</h2>
+  <p class="lead">Enter your number and the FloodGuard agent will call you to take a hazard report.</p>
+
+  <form id="form">
+    <label for="phone">Phone number</label>
+    <input id="phone" name="phone" type="tel" inputmode="tel" value="+91 "
+           placeholder="+91 98765 43210" required autocomplete="tel" autofocus>
+    <div class="hint">Spaces are fine &mdash; e.g. +91 98765 43210</div>
+    <button id="btn" type="submit">&#9742;&#65039; Call now</button>
+  </form>
+
+  <div id="status"></div>
+
+  <!-- Lives on the backend, so it needs the absolute ngrok URL rather than a
+       relative path like the built-in /dial page uses. Still Basic-auth
+       guarded (the reports carry caller data), so the browser will ask for
+       credentials even though placing a call no longer does. -->
+  <a class="reports-link" id="reports" target="_blank" rel="noopener">&#128202; View Call Reports Dashboard</a>
+
+  <div class="foot">
+    Backend: <span id="apihost"></span>
+  </div>
+</div>
+
+<script>
+  // The agent's backend stays on its reserved ngrok domain (the free tier
+  // allows one tunnel, and Twilio's webhooks need it). This page is hosted
+  // separately on GitHub Pages and talks to it cross-origin.
+  const API = "https://dreamily-attain-founding.ngrok-free.dev";
+
+  const form   = document.getElementById('form');
+  const btn    = document.getElementById('btn');
+  const status = document.getElementById('status');
+  const phoneEl = document.getElementById('phone');
+  document.getElementById('apihost').textContent = API.replace(/^https:\/\//, '');
+  document.getElementById('reports').href = API + '/api/v1/console/';
+
+  // Put the caret after the "+91 " default rather than before it.
+  phoneEl.addEventListener('focus', () => {
+    if (phoneEl.selectionStart === 0) {
+      const end = phoneEl.value.length;
+      phoneEl.setSelectionRange(end, end);
+    }
+  });
+
+  function show(kind, msg) {
+    status.className = kind;
+    status.textContent = msg;
+    status.style.display = 'block';
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = 'Calling…';
+    status.style.display = 'none';
+
+    try {
+      const res = await fetch(API + '/dial/call', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          // Without this, ngrok's free tier answers with its HTML
+          // "You are about to visit" interstitial instead of our JSON.
+          'ngrok-skip-browser-warning': 'true'
+        },
+        // Twilio needs strict E.164, so drop spaces/dashes before sending.
+        // The backend normalises too, this just avoids a pointless round trip.
+        body: new URLSearchParams({ phone: phoneEl.value.replace(/[^\d+]/g, '') })
+      });
+
+      const data = await res.json().catch(() => ({}));
+      if (res.ok) {
+        show('ok', '✓ Calling you now — ' + (data.call_sid || ''));
+      } else {
+        show('err', '✗ ' + (data.detail || ('Error ' + res.status)));
+      }
+    } catch (err) {
+      show('err', '✗ Could not reach the backend. Is the agent running? (' + err.message + ')');
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = '☎️ Call now';
+  });
+</script>
+</body>
+</html>

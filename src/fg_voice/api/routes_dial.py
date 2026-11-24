@@ -11,20 +11,30 @@ this should sit behind a VPN or be removed from the public ALB routing.
 
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, Form
+from fastapi import APIRouter, Form
 from fastapi.responses import HTMLResponse, JSONResponse
 from twilio.rest import Client  # type: ignore[import-untyped]
 
-from fg_voice.api.auth import require_basic_auth
 from fg_voice.config import get_settings
 from fg_voice.obs.logging import get_logger
 
 log = get_logger(__name__)
 
+# UNAUTHENTICATED BY DELIBERATE CHOICE.
+#
+# The dial pad is hosted publicly (GitHub Pages) and must work with no
+# login, so the Basic-auth guard was removed from this router.
+#
+# What stops abuse today is the Twilio account tier, not this app: a trial
+# account can only dial numbers on its Verified Caller IDs list, so a
+# stranger hitting /dial/call can at most ring the owner's own phone.
+# THAT PROTECTION DISAPPEARS THE MOMENT THE TWILIO ACCOUNT IS UPGRADED —
+# at that point anyone who finds the URL can place calls billed to it.
+# Before upgrading, put this behind auth again, an allow-list of numbers,
+# or rate limiting.
 router = APIRouter(
     prefix="/dial",
     tags=["dial"],
-    dependencies=[Depends(require_basic_auth)],
 )
 
 _HTML = """\
@@ -33,7 +43,7 @@ _HTML = """\
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sentinel — Initiate Call</title>
+  <title>FloodGuard — Initiate Call</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     body {
@@ -97,7 +107,7 @@ _HTML = """\
   <div class="logo">
     <div class="logo-icon">&#127754;</div>
     <div>
-      <div class="logo-text">Sentinel</div>
+      <div class="logo-text">FloodGuard</div>
       <div class="logo-sub">Voice Agent</div>
     </div>
   </div>
@@ -105,9 +115,9 @@ _HTML = """\
   <p>Enter the phone number to call. The AI agent will answer and collect the flood report.</p>
   <form id="form">
     <label for="phone">Phone number</label>
-    <input id="phone" name="phone" type="tel"
-           placeholder="+91 98765 43210" required autocomplete="tel">
-    <div class="hint">Include country code, e.g. +91 for India</div>
+    <input id="phone" name="phone" type="tel" value="+91 "
+           placeholder="+91 98765 43210" required autocomplete="tel" autofocus>
+    <div class="hint">Spaces are fine &mdash; e.g. +91 98765 43210</div>
     <button id="btn" type="submit">&#128222; Call now</button>
   </form>
   <div id="status"></div>
@@ -115,6 +125,15 @@ _HTML = """\
 </div>
 <script>
   const form   = document.getElementById('form');
+
+  // Put the caret after the "+91 " default rather than before it.
+  const phoneEl = document.getElementById('phone');
+  phoneEl.addEventListener('focus', () => {
+    if (phoneEl.selectionStart === 0) {
+      const end = phoneEl.value.length;
+      phoneEl.setSelectionRange(end, end);
+    }
+  });
   const btn    = document.getElementById('btn');
   const status = document.getElementById('status');
 
@@ -154,11 +173,26 @@ async def dial_page() -> HTMLResponse:
     return HTMLResponse(_HTML)
 
 
+def _to_e164(raw: str) -> str:
+    """Strip the separators people naturally type.
+
+    Twilio requires strict E.164 ("+919493579019") and rejects anything with
+    spaces, dashes or brackets, so "+91 94935 79019" would fail. Normalising
+    here rather than only in the page means every caller of this endpoint
+    benefits — the hosted dial pad, the built-in /dial page, and curl.
+
+    Only separators are removed; digits and the leading "+" are untouched, so
+    an already-valid number passes through unchanged and an invalid one still
+    fails at Twilio rather than being silently "fixed" into a wrong number."""
+    return "".join(ch for ch in raw.strip() if ch.isdigit() or ch == "+")
+
+
 @router.post("/call")
 async def initiate_call(
     phone: str = Form(...),
 ) -> JSONResponse:
     settings = get_settings()
+    phone = _to_e164(phone)
 
     if not settings.twilio_account_sid or not settings.twilio_auth_token.get_secret_value():
         return JSONResponse({"detail": "Twilio credentials not configured"}, status_code=503)

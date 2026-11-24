@@ -1,4 +1,4 @@
-﻿# Sentinel Voice Agent
+﻿# FloodGuard Voice Agent
 
 Real-time, interruptible, noise-robust English voice agent for telephone-based
 coastal hazard reporting. Twilio → streaming perception → deterministic

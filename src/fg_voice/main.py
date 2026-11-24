@@ -11,6 +11,7 @@ from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from fg_voice import __version__
 from fg_voice.api import routes_reports, routes_voice
@@ -26,7 +27,9 @@ from fg_voice.api.routes_reports import router as reports_router
 from fg_voice.api.routes_turn import router as turn_router
 from fg_voice.api.routes_voice import router as voice_router
 from fg_voice.config import Settings, get_settings
+from fg_voice.conversation import eot_patch as _eot_patch
 from fg_voice.conversation import graph_patch as _graph_patch
+from fg_voice.conversation import hints_patch as _hints_patch
 from fg_voice.conversation.state_store import get_call_state_store
 from fg_voice.enrichment import EnrichmentDispatcher, EnrichmentFlow
 from fg_voice.enrichment.sms_pin_offer import SmsPinOfferService
@@ -381,11 +384,32 @@ def _build_dedupe(settings: Settings) -> DedupeStrategy:
 
 
 app = FastAPI(
-    title="Sentinel Voice Agent",
+    title="FloodGuard Voice Agent",
     version=__version__,
     lifespan=lifespan,
     docs_url="/docs" if get_settings().fg_env != "production" else None,
     redoc_url=None,
+)
+
+# The dial pad is hosted off-box (GitHub Pages) because the ngrok free tier
+# allows only one tunnel, which the Twilio webhooks need. That makes the page
+# a cross-origin caller of /dial/call, so the browser demands CORS.
+#
+# Deliberately narrow: only the Pages origin, only the dial endpoint's needs.
+# This adds response headers and answers preflight OPTIONS - it does not
+# touch routing, the conversation graph, or the Twilio webhook paths (Twilio
+# sends no Origin header, so those responses are unaffected).
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://gojosatorou999.github.io",
+        "http://localhost:8080",  # the built-in /dial page, same-origin anyway
+    ],
+    allow_methods=["POST", "GET", "OPTIONS"],
+    # `authorization` carries the Basic credentials the page prompts for;
+    # `ngrok-skip-browser-warning` stops ngrok returning its HTML interstitial
+    # instead of JSON on the free tier.
+    allow_headers=["authorization", "content-type", "ngrok-skip-browser-warning"],
 )
 
 app.include_router(health_router)
@@ -403,3 +427,14 @@ app.include_router(gather_router)
 # Widen the ASK_HAZARD_TYPE guard so `flood` and `tsunami` can transition.
 # See conversation/graph_patch.py — defect in recovered bytecode.
 _graph_patch.apply()
+
+# Send only the answers each question can accept as Twilio speech hints.
+# See conversation/hints_patch.py — the full 150-term list was diluting
+# recognition badly enough to reject "knee deep" and "light".
+_hints_patch.apply()
+
+# Finalise closed-answer questions on a short silence timeout instead of
+# waiting out Twilio's conservative "auto" endpointer. See
+# conversation/eot_patch.py — this is the dead-air gap callers hear after
+# they have already answered.
+_eot_patch.apply()

@@ -48,7 +48,7 @@ log = get_logger(__name__)
 # The SMS body is deliberately short — one carrier SMS segment (160
 # GSM-7 chars) so a low-signal delivery doesn't get chunked.
 _SMS_BODY_TEMPLATE: Final[str] = (
-    "Sentinel: your report {short_ref} — drop a pin on the exact spot here: {url}"
+    "FloodGuard: your report {short_ref} — drop a pin on the exact spot here: {url}"
 )
 
 

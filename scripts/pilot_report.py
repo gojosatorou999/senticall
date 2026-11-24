@@ -105,7 +105,7 @@ def _print_report(r: dict[str, Any]) -> None:
     passed = g.get("passed", False)
 
     print(f"\n{'━' * 60}")
-    print("  Sentinel Voice — Pilot Completion Report")
+    print("  FloodGuard Voice — Pilot Completion Report")
     print(f"  Generated: {r['generated_at']}")
     if r.get("since"):
         print(f"  Since:     {r['since']}")

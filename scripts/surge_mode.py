@@ -6,7 +6,7 @@ slow. This script bumps the ECS service's `desiredCount` +
 `minCapacity` to a pre-computed surge floor, triggerable from three
 paths per spec:
 
-1. **IMD/INCOIS warning** — the main Sentinel alerting pipeline
+1. **IMD/INCOIS warning** — the main FloodGuard alerting pipeline
    invokes this script when a red-alert cyclone bulletin lands
 2. **Manual ops toggle** — on-call runs `surge_mode.py on` when they
    see a spike and want to pre-warm capacity

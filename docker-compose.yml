@@ -1,9 +1,9 @@
-﻿# Local development stack for the Sentinel Voice Agent.
+﻿# Local development stack for the FloodGuard Voice Agent.
 #
 # Everything here is disposable — do not point production at it.
 # `make dev` boots this; `make nuke` wipes the volumes.
 #
-# Host ports (chosen to avoid clashing with the main Sentinel project's
+# Host ports (chosen to avoid clashing with the main FloodGuard project's
 # stack, which also runs Postgres+Redis on the standard ports):
 #   55432  postgres (postgis + pgvector)  → container 5432
 #   56379  redis                          → container 6379

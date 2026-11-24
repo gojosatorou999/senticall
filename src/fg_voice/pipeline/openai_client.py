@@ -24,7 +24,7 @@ log = get_logger(__name__)
 
 REALTIME_MODEL = "gpt-realtime"
 
-_INSTRUCTIONS = """You are Sentinel, an AI voice agent for a coastal disaster hotline in India. \
+_INSTRUCTIONS = """You are FloodGuard, an AI voice agent for a coastal disaster hotline in India. \
 Callers report hazards such as floods, tsunamis, storms, oil/sludge spills, abnormal tides, \
 and coastal erosion. Speak clearly, calmly, and concisely — this may be an emergency.
 

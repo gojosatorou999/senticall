@@ -270,6 +270,75 @@ def build_keyterms() -> list[str]:
     return deduped
 
 
+# ─── Per-question keyterms (Twilio <Gather hints>) ───────────────────
+#
+# Twilio biases recognition toward `hints`, but that bias is diluted by
+# volume: sending the whole 150-term vocabulary on every question makes
+# the four words that can actually answer THIS question compete with ~146
+# irrelevant ones. Observed on live calls — at the depth question "knee
+# deep" came back as "neila Devi", and at severity "light" came back as
+# "right", both while the full list was in play.
+#
+# So each question ships only the answers it can accept, plus the yes/no
+# set (callers confirm and digress everywhere). Free-text questions
+# (description, location) keep the broad list, since anything can be said.
+
+_DEPTH_KEYTERMS: Final[tuple[str, ...]] = (
+    "ankle",
+    "ankle deep",
+    "knee",
+    "knee deep",
+    "knees",
+    "waist",
+    "waist deep",
+    "hip",
+    "chest",
+    "chest deep",
+    "shoulder",
+    "neck",
+    "above waist",
+    "higher than waist",
+    "shin",
+    "thigh",
+)
+
+# Question signature -> the only terms worth biasing toward. Matched
+# against the prompt text actually being spoken, so it keeps working if
+# prompt wording is reworded, as long as these anchor words survive.
+_QUESTION_KEYTERMS: Final[tuple[tuple[tuple[str, ...], tuple[str, ...]], ...]] = (
+    # depth: "how deep is the water - ankle, knee, waist, or higher?"
+    (("deep", "ankle", "knee"), _DEPTH_KEYTERMS),
+    # severity: "how bad is it - light, moderate, or extreme?"
+    (
+        ("light, moderate", "moderate, or extreme", "how bad", "press 1 for light"),
+        _SEVERITY_KEYTERMS,
+    ),
+    # hazard type: "what are you seeing - floods, tsunami, storm, ...?"
+    # "kind of hazard" is kept for the older wording; the prompt has since
+    # been shortened and would otherwise fall through to the full list.
+    (
+        ("kind of hazard", "which is closest", "floods, tsunami", "press 1 for floods"),
+        _HAZARD_KEYTERMS,
+    ),
+)
+
+
+def build_keyterms_for_prompt(prompt_text: str) -> list[str]:
+    """Narrow keyterm list for the question being asked.
+
+    Falls back to the full vocabulary for open questions (description,
+    location) and anything unrecognised, so a reworded prompt degrades to
+    today's behaviour rather than losing biasing altogether."""
+    lowered = prompt_text.lower()
+    for anchors, terms in _QUESTION_KEYTERMS:
+        if any(a in lowered for a in anchors):
+            # Response vocabulary always rides along: callers say "yes",
+            # "no" and "that's right" at every step, not just at the
+            # explicit confirmations.
+            return dedupe_case_insensitive([*terms, *_RESPONSE_KEYTERMS])
+    return build_keyterms()
+
+
 def build_keyterms_prompt() -> dict[str, list[str]]:
     """Deepgram Flux `keyterms` payload shape. Wired into the WS
     connection URL by the transport (P3 continuation) via:

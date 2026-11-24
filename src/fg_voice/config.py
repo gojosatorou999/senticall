@@ -1,4 +1,4 @@
-"""Runtime configuration for the Sentinel Voice Agent.
+"""Runtime configuration for the FloodGuard Voice Agent.
 
 Fails at boot on missing required env vars — never at runtime, and never
 with a caller on the line. See CLAUDE.md invariant #7.
@@ -155,6 +155,45 @@ class Settings(BaseSettings):
     no_input_timeout_ms: int = Field(default=6000, ge=1000, le=30_000)
     max_attempts_per_slot: int = Field(default=3, ge=1, le=5)
     emergency_number: str = "112"
+    # Seconds of trailing silence before Twilio finalises an OPEN-ENDED
+    # Gather (ask_description, ask_location). Applied by
+    # `conversation/eot_patch.py`.
+    #
+    # Per Twilio's <Gather> docs, speechTimeout="auto" stops recognising
+    # at the FIRST pause in speech, while a number waits that many
+    # seconds of silence. So "auto" is the fast option and a number is
+    # the patient one — the opposite of what this setting first assumed.
+    # Closed answers ("yes", "moderate") therefore keep "auto"; only the
+    # questions that invite a sentence get a numeric window, so a caller
+    # pausing for breath mid-description is not cut off at the first gap.
+    # That truncation is heard as both lag and mis-recognition, because a
+    # half-captured answer fails extraction and forces a reprompt.
+    #
+    # Set GATHER_OPEN_SPEECH_TIMEOUT_SEC=0 to use "auto" everywhere.
+    gather_open_speech_timeout_sec: int = Field(default=3, ge=0, le=10)
+    # Twilio <Gather speechModel>.
+    #
+    # "phone_call" is Twilio's v1 telephony model and the only value
+    # verified to work on THIS account. "googlev2_telephony" was tried and
+    # the call died immediately: Twilio fetched /voice/gather/start, got
+    # 200 TwiML back, and never requested the next turn — the signature of
+    # a rejected attribute, not an app fault. The newer multi-provider
+    # models rolled out on a per-account basis, so treat them as
+    # unavailable until a test call proves otherwise.
+    #
+    # If you upgrade off the trial tier, "googlev2_telephony" is the one
+    # to retry — better on accented 8 kHz audio and it still honours
+    # `hints`. Do NOT reach for deepgram_nova-3: it takes keyterms rather
+    # than hints, which Gather does not pass, so it would silently discard
+    # the per-question hint list `conversation/hints_patch.py` builds.
+    gather_speech_model: str = "phone_call"
+    # Caller-facing <Say> voice. Google's Chirp3-HD tier is generative:
+    # Twilio must run synthesis before playback can start, on every turn,
+    # and that wait is dead air the caller hears after answering.
+    # Polly.Kajal-Neural is the neural tier — still en-IN, still natural,
+    # but synthesised fast enough not to show. Set TWILIO_VOICE=
+    # Google.en-IN-Chirp3-HD-Aoede to trade the latency back for tone.
+    twilio_voice: str = "Polly.Kajal-Neural"
     # RUNNER_MODE=true → /voice/inbound redirects to the Gather-based
     # HTTP flow instead of the Media Streams path. Provides a keyless
     # bring-up path for the P2 exit gate (Twilio does the STT itself);

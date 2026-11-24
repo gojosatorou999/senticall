@@ -1,4 +1,4 @@
-﻿# Operating rules for the Sentinel Voice Agent repository
+﻿# Operating rules for the FloodGuard Voice Agent repository
 
 These are hard invariants. Violating any of them is not a style issue — it's
 a life-safety-adjacent bug. See `ai-calling-agent.md` §2 for the full rationale.

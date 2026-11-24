@@ -1,11 +1,11 @@
 [project]
 name = "fg-voice"
 version = "0.1.0"
-description = "Sentinel Voice Agent — coastal hazard reporting over Twilio."
+description = "FloodGuard Voice Agent — coastal hazard reporting over Twilio."
 requires-python = ">=3.12,<3.13"
 readme = "README.md"
 license = { text = "Proprietary" }
-authors = [{ name = "Team Sentinel" }]
+authors = [{ name = "Team FloodGuard" }]
 
 dependencies = [
     # ── Web / ASGI ────────────────────────────────────────────

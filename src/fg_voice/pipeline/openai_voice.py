@@ -41,7 +41,7 @@ _STT_PROMPT = (
     "Bheemunipatnam, Chennai, Puri, Digha."
 )
 
-_SYSTEM_PROMPT = """You are Sentinel, a calm and concise AI voice agent for a coastal \
+_SYSTEM_PROMPT = """You are FloodGuard, a calm and concise AI voice agent for a coastal \
 disaster hotline in India. You are speaking to a caller on the phone.
 
 Collect these four things, ONE question at a time, in this order:

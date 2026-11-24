@@ -67,7 +67,7 @@ def _parse_snrs(raw: str) -> tuple[float, ...]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Sentinel voice-agent noise sweep")
+    parser = argparse.ArgumentParser(description="FloodGuard voice-agent noise sweep")
     parser.add_argument("--manifest", required=True, type=Path, help="corpus manifest JSON")
     parser.add_argument(
         "--denoise",

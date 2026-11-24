@@ -152,7 +152,7 @@ def _print_review(r: dict[str, Any]) -> None:
 
     ok = lambda b: "✅" if b else "❌"
     print(f"\n{'━' * 62}")
-    print("  Sentinel Voice — Weekly Accuracy Review")
+    print("  FloodGuard Voice — Weekly Accuracy Review")
     print(f"  Period: last {r['review_period_weeks']} week(s) ({r['since'][:10]} →)")
     print(f"  Generated: {r['generated_at'][:19]}")
     print(f"{'━' * 62}")
